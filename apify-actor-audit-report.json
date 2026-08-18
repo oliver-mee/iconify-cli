@@ -1,0 +1,9 @@
+{
+  "dir": "\u003ccli-dir\u003e/iconify-pp-cli",
+  "research_dir": "\u003ccli-dir\u003e/20260818-144450-04865115",
+  "verdict": "pass",
+  "actors": null,
+  "issues": [
+    "no Apify actor references found, skipping"
+  ]
+}

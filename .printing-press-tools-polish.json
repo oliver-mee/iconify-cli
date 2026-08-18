@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-08-18T07:57:08.13537022Z",
+  "cli_dir": "\u003ccli-dir\u003e/iconify-pp-cli",
+  "findings": [
+    {
+      "kind": "thin-short",
+      "command": "list",
+      "file": "platform_client.go",
+      "line": 517,
+      "evidence": "List client profiles",
+      "status": "accepted",
+      "note": "Accepted: internal/cli/platform_client.go is a DO-NOT-EDIT generated file; 'List client profiles' is accurate for the platform profile-store leaf and a hand-edit here would be wiped on regen. Needs a generator-template fix — retro candidate."
+    },
+    {
+      "kind": "thin-short",
+      "command": "list",
+      "file": "teach.go",
+      "line": 691,
+      "evidence": "List recorded learnings",
+      "status": "accepted",
+      "note": "Accepted: internal/cli/teach.go is a DO-NOT-EDIT generated file; 'List recorded learnings' is accurate for the learn-loop leaf and a hand-edit here would be wiped on regen. Needs a generator-template fix — retro candidate."
+    }
+  ],
+  "scorecard_before": {
+    "mcp_description_quality": 10,
+    "captured": "2026-08-18T07:41:32.760440136Z"
+  }
+}

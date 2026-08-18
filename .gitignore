@@ -1,0 +1,9 @@
+# Compiled binaries
+/iconify-pp-cli
+/iconify-pp-mcp
+/build/
+
+# Local icon index
+*.db
+*.db-shm
+*.db-wal

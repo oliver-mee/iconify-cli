@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-08-18T07:58:48.802868932Z",
+  "printing_press_version": "4.30.3",
+  "api_name": "iconify",
+  "display_name": "Iconify",
+  "cli_name": "iconify-pp-cli",
+  "creator": {
+    "handle": "oliver-mee",
+    "name": "Oliver Mee"
+  },
+  "owner": "oliver-mee",
+  "printer": "oliver-mee",
+  "printer_name": "Oliver Mee",
+  "spec_path": "spec.yaml",
+  "spec_format": "internal",
+  "spec_checksum": "sha256:7329b72b657c554eebafd98483cbf4a2f17827336a466c075bd5e6b66e828356",
+  "run_id": "20260818-144450-04865115",
+  "category": "developer-tools",
+  "description": "Every Iconify icon from one Go binary, plus a local index that answers set-coverage, migration, and audit questions no icon tool answers today.",
+  "mcp_binary": "iconify-pp-mcp",
+  "mcp_tool_count": 9,
+  "mcp_public_tool_count": 9,
+  "mcp_ready": "full",
+  "api_version": "0.1.0",
+  "auth_type": "none",
+  "auth_env_vars": [
+    "PRINTING_PRESS_CLIENT_PROFILE"
+  ],
+  "auth_env_var_specs": [
+    {
+      "name": "PRINTING_PRESS_CLIENT_PROFILE",
+      "kind": "per_call",
+      "required": true,
+      "sensitive": false
+    }
+  ],
+  "novel_features": [
+    {
+      "name": "Local corpus index",
+      "command": "index",
+      "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets."
+    },
+    {
+      "name": "Set coverage picker",
+      "command": "set-pick",
+      "description": "Given the icon concepts you need, rank icon sets by how many of them each set actually covers."
+    },
+    {
+      "name": "shadcn.io registry bridge",
+      "command": "shadcn",
+      "description": "Turn Iconify icon names into shadcn.io registry slugs and optionally run the install."
+    },
+    {
+      "name": "Manifest-driven icon kit",
+      "command": "kit",
+      "description": "Render a whole directory of recoloured, uniformly sized SVGs from a manifest of icon names."
+    },
+    {
+      "name": "Repo icon audit",
+      "command": "audit",
+      "description": "Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names."
+    },
+    {
+      "name": "Set drift diff",
+      "command": "diff",
+      "description": "Show which icons an upstream set added, removed, or aliased since your last sync."
+    },
+    {
+      "name": "Cross-set migration map",
+      "command": "swap",
+      "description": "Map a list of icons from one set to another, classifying each as covered, renamed, or missing."
+    }
+  ],
+  "novel_features_built": [
+    {
+      "name": "Local corpus index",
+      "command": "index",
+      "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets."
+    },
+    {
+      "name": "Set coverage picker",
+      "command": "set-pick",
+      "description": "Given the icon concepts you need, rank icon sets by how many of them each set actually covers."
+    },
+    {
+      "name": "shadcn.io registry bridge",
+      "command": "shadcn",
+      "description": "Turn Iconify icon names into shadcn.io registry slugs and optionally run the install."
+    },
+    {
+      "name": "Manifest-driven icon kit",
+      "command": "kit",
+      "description": "Render a whole directory of recoloured, uniformly sized SVGs from a manifest of icon names."
+    },
+    {
+      "name": "Repo icon audit",
+      "command": "audit",
+      "description": "Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names."
+    },
+    {
+      "name": "Set drift diff",
+      "command": "diff",
+      "description": "Show which icons an upstream set added, removed, or aliased since your last sync."
+    },
+    {
+      "name": "Cross-set migration map",
+      "command": "swap",
+      "description": "Map a list of icons from one set to another, classifying each as covered, renamed, or missing."
+    }
+  ],
+  "verify": {
+    "mode": "mock",
+    "pass_rate": 100,
+    "passed": 39,
+    "total": 39,
+    "data_pipeline": true,
+    "verdict": "PASS"
+  },
+  "scorecard": {
+    "steinberger": {
+      "percentage": 89,
+      "grade": "A (1 of 24 dimensions unverified: live_api_verification)",
+      "total": 89
+    },
+    "unverified_dimensions": [
+      "live_api_verification"
+    ]
+  }
+}

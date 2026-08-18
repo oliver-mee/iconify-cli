@@ -1,0 +1,300 @@
+{
+  "api_name": "iconify",
+  "base_url": "https://api.iconify.design",
+  "description": "Every Iconify icon from one Go binary, plus a local index that answers set-coverage, migration, and audit questions no icon tool answers today.",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "auth": {
+    "type": "none"
+  },
+  "required_headers": [],
+  "tools": [
+    {
+      "name": "icons_css",
+      "description": "Generate a CSS mask sprite for a list of icons from one set. Required: prefix, icons.",
+      "method": "GET",
+      "path": "/{prefix}.css",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "path",
+          "description": "Icon set prefix, e.g. lucide",
+          "required": true
+        },
+        {
+          "name": "icons",
+          "type": "string",
+          "location": "query",
+          "description": "Comma separated icon names",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "icons_data",
+      "description": "Fetch many icons from one set as a single IconifyJSON payload. Required: prefix, icons.",
+      "method": "GET",
+      "path": "/{prefix}.json",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "path",
+          "description": "Icon set prefix, e.g. lucide",
+          "required": true
+        },
+        {
+          "name": "icons",
+          "type": "string",
+          "location": "query",
+          "description": "Comma separated icon names",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "icons_get",
+      "description": "Fetch one icon as SVG, optionally recoloured and resized. Required: prefix, name. Optional: color, width, height (plus 3 more).",
+      "method": "GET",
+      "path": "/{prefix}/{name}.svg",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "path",
+          "description": "Icon set prefix, e.g. lucide",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "path",
+          "description": "Icon name within the set, e.g. arrow-right",
+          "required": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "location": "query",
+          "description": "Replace currentColor with a fixed colour, e.g. '#404041'"
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "location": "query",
+          "description": "Width. Setting only one dimension scales the other to match"
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "location": "query",
+          "description": "Height. Setting only one dimension scales the other to match"
+        },
+        {
+          "name": "flip",
+          "type": "string",
+          "location": "query",
+          "description": "Flip the icon: horizontal, vertical, or both"
+        },
+        {
+          "name": "rotate",
+          "type": "string",
+          "location": "query",
+          "description": "Rotate by 90, 180, or 270 degrees"
+        },
+        {
+          "name": "box",
+          "type": "bool",
+          "location": "query",
+          "description": "Add an empty rectangle matching the viewBox"
+        }
+      ]
+    },
+    {
+      "name": "icons_search",
+      "description": "Search icons by keyword across every icon set. Required: query. Optional: limit (default: 64), start, prefix (plus 2 more).",
+      "method": "GET",
+      "path": "/search",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query",
+          "description": "Search text, case insensitive (e.g. 'arrow right')",
+          "required": true
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query",
+          "description": "Result limit. The API clamps below 32 and above 999"
+        },
+        {
+          "name": "start",
+          "type": "int",
+          "location": "query",
+          "description": "Index of the first result, for pagination"
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "query",
+          "description": "Restrict to one icon set, e.g. lucide"
+        },
+        {
+          "name": "prefixes",
+          "type": "string",
+          "location": "query",
+          "description": "Comma separated icon sets. Partial prefixes ending in '-' match a family, e.g. 'mdi-'"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "location": "query",
+          "description": "Restrict to icon sets in one category, e.g. 'General'"
+        }
+      ]
+    },
+    {
+      "name": "keywords_list",
+      "description": "Suggest search keywords that start with or end with a fragment. Optional: prefix, keyword.",
+      "method": "GET",
+      "path": "/keywords",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "query",
+          "description": "Return keywords starting with this fragment"
+        },
+        {
+          "name": "keyword",
+          "type": "string",
+          "location": "query",
+          "description": "Return keywords starting or ending with this fragment. Ignored when prefix is set"
+        }
+      ]
+    },
+    {
+      "name": "meta_last-modified",
+      "description": "Get the last modification time per icon set, for cache invalidation and incremental sync. Optional: prefix, prefixes.",
+      "method": "GET",
+      "path": "/last-modified",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "query",
+          "description": "Restrict to one icon set"
+        },
+        {
+          "name": "prefixes",
+          "type": "string",
+          "location": "query",
+          "description": "Comma separated icon sets"
+        }
+      ]
+    },
+    {
+      "name": "meta_version",
+      "description": "Report the Iconify API version and serving region.",
+      "method": "GET",
+      "path": "/version",
+      "no_auth": true,
+      "params": []
+    },
+    {
+      "name": "sets_get",
+      "description": "List every icon name in one set, with categories, aliases, and hidden icons. Required: prefix. Optional: info, chars.",
+      "method": "GET",
+      "path": "/collection",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "query",
+          "description": "Icon set prefix, e.g. lucide",
+          "required": true
+        },
+        {
+          "name": "info",
+          "type": "bool",
+          "location": "query",
+          "description": "Include the icon set's info block"
+        },
+        {
+          "name": "chars",
+          "type": "bool",
+          "location": "query",
+          "description": "Include the character map, for sets imported from icon fonts"
+        }
+      ]
+    },
+    {
+      "name": "sets_list",
+      "description": "List every icon set with its size, author, licence, and category. Optional: prefix, prefixes.",
+      "method": "GET",
+      "path": "/collections",
+      "no_auth": true,
+      "params": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "location": "query",
+          "description": "Restrict to one icon set"
+        },
+        {
+          "name": "prefixes",
+          "type": "string",
+          "location": "query",
+          "description": "Comma separated icon sets. Partial prefixes ending in '-' match a family"
+        }
+      ]
+    }
+  ],
+  "novel_features": [
+    {
+      "name": "Local corpus index",
+      "command": "index",
+      "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets."
+    },
+    {
+      "name": "Set coverage picker",
+      "command": "set-pick",
+      "description": "Given the icon concepts you need, rank icon sets by how many of them each set actually covers."
+    },
+    {
+      "name": "shadcn.io registry bridge",
+      "command": "shadcn",
+      "description": "Turn Iconify icon names into shadcn.io registry slugs and optionally run the install."
+    },
+    {
+      "name": "Manifest-driven icon kit",
+      "command": "kit",
+      "description": "Render a whole directory of recoloured, uniformly sized SVGs from a manifest of icon names."
+    },
+    {
+      "name": "Repo icon audit",
+      "command": "audit",
+      "description": "Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names."
+    },
+    {
+      "name": "Set drift diff",
+      "command": "diff",
+      "description": "Show which icons an upstream set added, removed, or aliased since your last sync."
+    },
+    {
+      "name": "Cross-set migration map",
+      "command": "swap",
+      "description": "Map a list of icons from one set to another, classifying each as covered, renamed, or missing."
+    }
+  ]
+}

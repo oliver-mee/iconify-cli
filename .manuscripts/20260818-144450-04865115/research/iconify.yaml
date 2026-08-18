@@ -1,0 +1,245 @@
+name: iconify
+description: "Search, inspect, and fetch icons from the Iconify API: 236 icon sets, ~294k icons, no auth required"
+version: "0.1.0"
+base_url: "https://api.iconify.design"
+health_check_path: "/version"
+category: developer-tools
+
+auth:
+  type: none
+
+config:
+  format: toml
+  path: "~/.config/iconify/config.toml"
+
+learn:
+  entity_lookup_seeds:
+    icon_set:
+      - canonical: mdi
+        aliases: [material design icons, material icons, materialdesign]
+      - canonical: lucide
+        aliases: [lucide icons, feather successor]
+      - canonical: fa6-solid
+        aliases: [font awesome, fontawesome, fa solid, font awesome solid]
+      - canonical: fa6-brands
+        aliases: [font awesome brands, brand icons, logos]
+      - canonical: simple-icons
+        aliases: [simpleicons, brand logos, company logos]
+      - canonical: tabler
+        aliases: [tabler icons]
+      - canonical: ph
+        aliases: [phosphor, phosphor icons]
+      - canonical: carbon
+        aliases: [ibm carbon, carbon design]
+      - canonical: material-symbols
+        aliases: [material symbols, google symbols]
+      - canonical: bi
+        aliases: [bootstrap icons, bootstrap]
+      - canonical: heroicons
+        aliases: [hero icons, tailwind icons]
+      - canonical: ri
+        aliases: [remix icon, remixicon]
+  synonyms:
+    "icon set": "collection"
+    "icon pack": "collection"
+    "most recent": "latest"
+  stopwords:
+    - icon
+    - icons
+
+resources:
+  icons:
+    description: "Search and fetch individual icons"
+    endpoints:
+      search:
+        method: GET
+        path: "/search"
+        description: "Search icons by keyword across every icon set"
+        example: "  iconify icons search --query \"arrow right\" --prefix lucide"
+        happy_args: "--query=home;--limit=32"
+        params:
+          - name: query
+            type: string
+            required: true
+            description: "Search text, case insensitive (e.g. 'arrow right')"
+          - name: limit
+            type: int
+            default: 64
+            description: "Result limit. The API clamps below 32 and above 999"
+          - name: start
+            type: int
+            description: "Index of the first result, for pagination"
+          - name: prefix
+            type: string
+            description: "Restrict to one icon set, e.g. lucide"
+          - name: prefixes
+            type: string
+            description: "Comma separated icon sets. Partial prefixes ending in '-' match a family, e.g. 'mdi-'"
+          - name: category
+            type: string
+            description: "Restrict to icon sets in one category, e.g. 'General'"
+        response:
+          type: object
+
+      get:
+        method: GET
+        path: "/{prefix}/{name}.svg"
+        description: "Fetch one icon as SVG, optionally recoloured and resized"
+        example: "  iconify icons get lucide arrow-right --color '#404041' --width 32"
+        happy_args: "prefix=lucide;name=home"
+        response_format: binary
+        params:
+          - name: prefix
+            type: string
+            required: true
+            positional: true
+            description: "Icon set prefix, e.g. lucide"
+          - name: name
+            type: string
+            required: true
+            positional: true
+            description: "Icon name within the set, e.g. arrow-right"
+          - name: color
+            type: string
+            description: "Replace currentColor with a fixed colour, e.g. '#404041'"
+          - name: width
+            type: string
+            description: "Width. Setting only one dimension scales the other to match"
+          - name: height
+            type: string
+            description: "Height. Setting only one dimension scales the other to match"
+          - name: flip
+            type: string
+            description: "Flip the icon: horizontal, vertical, or both"
+            enum: ["horizontal", "vertical", "horizontal,vertical"]
+          - name: rotate
+            type: string
+            description: "Rotate by 90, 180, or 270 degrees"
+            enum: ["90", "180", "270"]
+          - name: box
+            type: bool
+            description: "Add an empty rectangle matching the viewBox"
+        response:
+          type: object
+
+      data:
+        method: GET
+        path: "/{prefix}.json"
+        description: "Fetch many icons from one set as a single IconifyJSON payload"
+        example: "  iconify icons data lucide --icons home,star,rocket"
+        happy_args: "prefix=lucide;--icons=home,star"
+        params:
+          - name: prefix
+            type: string
+            required: true
+            positional: true
+            description: "Icon set prefix, e.g. lucide"
+          - name: icons
+            type: string
+            required: true
+            description: "Comma separated icon names"
+        response:
+          type: object
+
+      css:
+        method: GET
+        path: "/{prefix}.css"
+        description: "Generate a CSS mask sprite for a list of icons from one set"
+        example: "  iconify icons css lucide --icons home,star > icons.css"
+        happy_args: "prefix=lucide;--icons=home,star"
+        response_format: binary
+        params:
+          - name: prefix
+            type: string
+            required: true
+            positional: true
+            description: "Icon set prefix, e.g. lucide"
+          - name: icons
+            type: string
+            required: true
+            description: "Comma separated icon names"
+        response:
+          type: object
+
+  sets:
+    description: "Browse and inspect icon sets"
+    endpoints:
+      list:
+        method: GET
+        path: "/collections"
+        description: "List every icon set with its size, author, licence, and category"
+        example: "  iconify sets list --prefixes 'mdi-'"
+        params:
+          - name: prefix
+            type: string
+            description: "Restrict to one icon set"
+          - name: prefixes
+            type: string
+            description: "Comma separated icon sets. Partial prefixes ending in '-' match a family"
+        response:
+          type: object
+
+      get:
+        method: GET
+        path: "/collection"
+        description: "List every icon name in one set, with categories, aliases, and hidden icons"
+        example: "  iconify sets get --prefix lucide --info"
+        happy_args: "--prefix=lucide"
+        params:
+          - name: prefix
+            type: string
+            required: true
+            description: "Icon set prefix, e.g. lucide"
+          - name: info
+            type: bool
+            description: "Include the icon set's info block"
+          - name: chars
+            type: bool
+            description: "Include the character map, for sets imported from icon fonts"
+        response:
+          type: object
+
+  keywords:
+    description: "Expand partial keywords into search suggestions"
+    endpoints:
+      list:
+        method: GET
+        path: "/keywords"
+        description: "Suggest search keywords that start with or end with a fragment"
+        example: "  iconify keywords list --keyword home"
+        happy_args: "--keyword=home"
+        params:
+          - name: prefix
+            type: string
+            description: "Return keywords starting with this fragment"
+          - name: keyword
+            type: string
+            description: "Return keywords starting or ending with this fragment. Ignored when prefix is set"
+        response:
+          type: object
+
+  meta:
+    description: "API metadata and cache invalidation"
+    endpoints:
+      last-modified:
+        method: GET
+        path: "/last-modified"
+        description: "Get the last modification time per icon set, for cache invalidation and incremental sync"
+        example: "  iconify meta last-modified --prefixes lucide,mdi"
+        params:
+          - name: prefix
+            type: string
+            description: "Restrict to one icon set"
+          - name: prefixes
+            type: string
+            description: "Comma separated icon sets"
+        response:
+          type: object
+
+      version:
+        method: GET
+        path: "/version"
+        description: "Report the Iconify API version and serving region"
+        response_format: binary
+        response:
+          type: object

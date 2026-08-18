@@ -1,0 +1,305 @@
+{
+  "api_name": "iconify",
+  "novelty_score": 0,
+  "alternatives": [
+    {
+      "name": "pyconify",
+      "url": "https://github.com/pyapp-kit/pyconify",
+      "language": "Python",
+      "install_method": "",
+      "stars": 7,
+      "last_updated": "",
+      "command_count": 9,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "iconify-mcp-server",
+      "url": "https://github.com/imjac0b/iconify-mcp-server",
+      "language": "TypeScript",
+      "install_method": "",
+      "stars": 14,
+      "last_updated": "",
+      "command_count": 4,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "iconify-cli",
+      "url": "https://github.com/bytelab-studio/iconify-cli",
+      "language": "TypeScript",
+      "install_method": "",
+      "stars": 4,
+      "last_updated": "",
+      "command_count": 5,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "templ-iconify",
+      "url": "https://github.com/ksckaan1/templ-iconify",
+      "language": "Go",
+      "install_method": "",
+      "stars": 10,
+      "last_updated": "",
+      "command_count": 1,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "dioxus-iconify",
+      "url": "https://github.com/davidB/dioxus-iconify",
+      "language": "Rust",
+      "install_method": "",
+      "stars": 11,
+      "last_updated": "",
+      "command_count": 1,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "icones",
+      "url": "https://github.com/antfu-collective/icones",
+      "language": "TypeScript",
+      "install_method": "",
+      "stars": 7438,
+      "last_updated": "",
+      "command_count": 0,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "iconifydl",
+      "url": "https://github.com/ksckaan1/iconifydl",
+      "language": "Go",
+      "install_method": "",
+      "stars": 3,
+      "last_updated": "",
+      "command_count": 1,
+      "has_json_output": false,
+      "has_auth_support": false
+    }
+  ],
+  "gaps": [],
+  "patterns": [],
+  "recommendation": "proceed",
+  "researched_at": "2026-08-18T06:56:07Z",
+  "novel_features": [
+    {
+      "name": "Local corpus index",
+      "command": "index",
+      "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets.",
+      "rationale": "The API returns collections as one object and icon names only per-prefix, so no generated sync path can build a queryable corpus; this fans out and stores it.",
+      "example": "iconify-pp-cli index --only lucide",
+      "why_it_matters": "Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network.",
+      "group": "Local state that compounds"
+    },
+    {
+      "name": "Set coverage picker",
+      "command": "set-pick",
+      "description": "Given the icon concepts you need, rank icon sets by how many of them each set actually covers.",
+      "rationale": "Requires one local FTS5 query per concept grouped by prefix; no endpoint returns coverage-by-set.",
+      "example": "iconify set-pick \"rocket\" \"shield\" \"handshake\" --agent",
+      "why_it_matters": "Reach for this before writing any UI that needs several icons, so every icon comes from one set at one stroke weight.",
+      "group": "Choose and stay consistent"
+    },
+    {
+      "name": "shadcn.io registry bridge",
+      "command": "shadcn",
+      "description": "Turn Iconify icon names into shadcn.io registry slugs and optionally run the install.",
+      "rationale": "The Iconify API knows nothing about shadcn.io; the mapping only works with a local existence and alias check.",
+      "example": "iconify shadcn lucide:home carbon:rocket --agent",
+      "why_it_matters": "Use this when the project installs components from shadcn.io and you need the icon as a registry item rather than a raw SVG.",
+      "group": "Bridges to other tooling"
+    },
+    {
+      "name": "Manifest-driven icon kit",
+      "command": "kit",
+      "description": "Render a whole directory of recoloured, uniformly sized SVGs from a manifest of icon names.",
+      "rationale": "Batches the SVG endpoint's render parameters across a manifest with idempotent writes and a miss report; surveyed tools fetch one icon at a time.",
+      "example": "iconify kit icons.yaml --out assets/ --color '#404041' --width 32",
+      "why_it_matters": "Use this when a deck, brand kit, or design system needs many icons at one colour and size rather than one ad-hoc icon.",
+      "group": "Batch rendering"
+    },
+    {
+      "name": "Repo icon audit",
+      "command": "audit",
+      "description": "Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names.",
+      "rationale": "Joins repository source against the local icons and collections tables; no endpoint reads a filesystem.",
+      "example": "iconify audit ./src --agent",
+      "why_it_matters": "Use this on review to catch icons drifting across sets, or names that silently resolved through an alias.",
+      "group": "Choose and stay consistent"
+    },
+    {
+      "name": "Set drift diff",
+      "command": "diff",
+      "description": "Show which icons an upstream set added, removed, or aliased since your last sync.",
+      "rationale": "Uses the last-modified cursor to fetch only advanced sets, then diffs against a stored local snapshot; elsewhere last-modified is a raw timestamp with no changeset semantics.",
+      "example": "iconify diff --set lucide --agent",
+      "why_it_matters": "Use this before upgrading an icon dependency, to see whether a name you rely on disappeared.",
+      "group": "Track upstream change"
+    },
+    {
+      "name": "Cross-set migration map",
+      "command": "swap",
+      "description": "Map a list of icons from one set to another, classifying each as covered, renamed, or missing.",
+      "rationale": "Self-joins the local icons table across two prefixes over canonical names and aliases; no surveyed tool exposes cross-set queries.",
+      "example": "iconify swap mdi lucide --icons home,account,cog,rocket --agent",
+      "why_it_matters": "Use this when standardising an existing codebase onto one icon set, to see the cost before committing.",
+      "group": "Choose and stay consistent"
+    }
+  ],
+  "novel_features_built": [
+    {
+      "name": "Local corpus index",
+      "command": "index",
+      "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets.",
+      "rationale": "The API returns collections as one object and icon names only per-prefix, so no generated sync path can build a queryable corpus; this fans out and stores it.",
+      "example": "iconify-pp-cli index --only lucide",
+      "why_it_matters": "Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network.",
+      "group": "Local state that compounds"
+    },
+    {
+      "name": "Set coverage picker",
+      "command": "set-pick",
+      "description": "Given the icon concepts you need, rank icon sets by how many of them each set actually covers.",
+      "rationale": "Requires one local FTS5 query per concept grouped by prefix; no endpoint returns coverage-by-set.",
+      "example": "iconify set-pick \"rocket\" \"shield\" \"handshake\" --agent",
+      "why_it_matters": "Reach for this before writing any UI that needs several icons, so every icon comes from one set at one stroke weight.",
+      "group": "Choose and stay consistent"
+    },
+    {
+      "name": "shadcn.io registry bridge",
+      "command": "shadcn",
+      "description": "Turn Iconify icon names into shadcn.io registry slugs and optionally run the install.",
+      "rationale": "The Iconify API knows nothing about shadcn.io; the mapping only works with a local existence and alias check.",
+      "example": "iconify shadcn lucide:home carbon:rocket --agent",
+      "why_it_matters": "Use this when the project installs components from shadcn.io and you need the icon as a registry item rather than a raw SVG.",
+      "group": "Bridges to other tooling"
+    },
+    {
+      "name": "Manifest-driven icon kit",
+      "command": "kit",
+      "description": "Render a whole directory of recoloured, uniformly sized SVGs from a manifest of icon names.",
+      "rationale": "Batches the SVG endpoint's render parameters across a manifest with idempotent writes and a miss report; surveyed tools fetch one icon at a time.",
+      "example": "iconify kit icons.yaml --out assets/ --color '#404041' --width 32",
+      "why_it_matters": "Use this when a deck, brand kit, or design system needs many icons at one colour and size rather than one ad-hoc icon.",
+      "group": "Batch rendering"
+    },
+    {
+      "name": "Repo icon audit",
+      "command": "audit",
+      "description": "Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names.",
+      "rationale": "Joins repository source against the local icons and collections tables; no endpoint reads a filesystem.",
+      "example": "iconify audit ./src --agent",
+      "why_it_matters": "Use this on review to catch icons drifting across sets, or names that silently resolved through an alias.",
+      "group": "Choose and stay consistent"
+    },
+    {
+      "name": "Set drift diff",
+      "command": "diff",
+      "description": "Show which icons an upstream set added, removed, or aliased since your last sync.",
+      "rationale": "Uses the last-modified cursor to fetch only advanced sets, then diffs against a stored local snapshot; elsewhere last-modified is a raw timestamp with no changeset semantics.",
+      "example": "iconify diff --set lucide --agent",
+      "why_it_matters": "Use this before upgrading an icon dependency, to see whether a name you rely on disappeared.",
+      "group": "Track upstream change"
+    },
+    {
+      "name": "Cross-set migration map",
+      "command": "swap",
+      "description": "Map a list of icons from one set to another, classifying each as covered, renamed, or missing.",
+      "rationale": "Self-joins the local icons table across two prefixes over canonical names and aliases; no surveyed tool exposes cross-set queries.",
+      "example": "iconify swap mdi lucide --icons home,account,cog,rocket --agent",
+      "why_it_matters": "Use this when standardising an existing codebase onto one icon set, to see the cost before committing.",
+      "group": "Choose and stay consistent"
+    }
+  ],
+  "narrative": {
+    "display_name": "Iconify",
+    "headline": "Every Iconify icon from one Go binary, plus a local index that answers set-coverage, migration, and audit questions no icon tool answers today.",
+    "value_prop": "Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured SVG, and generate CSS or bulk JSON for a build step. The local SQLite mirror turns the corpus into something you can ask real questions of: which single set covers every icon this page needs, what breaks if you migrate from mdi to lucide, and which icons in this repo silently resolved through an alias.",
+    "quickstart": [
+      {
+        "command": "iconify-pp-cli doctor --dry-run",
+        "comment": "confirm the API is reachable; no credentials are needed"
+      },
+      {
+        "command": "iconify-pp-cli index",
+        "comment": "mirror all 236 icon sets locally so search and analysis work offline"
+      },
+      {
+        "command": "iconify-pp-cli icons search --query \"arrow right\" --prefix lucide",
+        "comment": "find an icon by describing it"
+      },
+      {
+        "command": "iconify-pp-cli icons get lucide arrow-right --color '#404041' --width 32",
+        "comment": "fetch it as an SVG at your brand colour"
+      },
+      {
+        "command": "iconify-pp-cli set-pick rocket shield handshake",
+        "comment": "pick one set that covers everything a page needs"
+      }
+    ],
+    "troubleshoots": [
+      {
+        "symptom": "search returns far more results than the limit you asked for",
+        "fix": "The API silently clamps limit below 32. Run 'index' once and the analysis commands resolve locally, where the floor does not apply."
+      },
+      {
+        "symptom": "an icon name comes back under a different name",
+        "fix": "Iconify resolves names through aliases, so lucide:home serves house. Run 'audit' to list every reference in a repo that resolved this way."
+      },
+      {
+        "symptom": "set-pick, audit, swap, or diff report an empty index",
+        "fix": "They read the local mirror. Run 'index' first; it takes about 40 seconds for all 236 sets. If only some sets are missing, 'swap' withholds its verdict and names them under 'unindexed' — run 'index --only \u003cprefix\u003e' for those rather than trusting a partial answer."
+      },
+      {
+        "symptom": "a set you rely on lost an icon after an upgrade",
+        "fix": "Run 'diff --set \u003cprefix\u003e' to list what upstream added or removed since your last index."
+      }
+    ],
+    "when_to_use": "Reach for this when you need an icon and do not already know its exact name, when a project needs many icons rendered at one colour and size, or when you are deciding which icon set to standardise on. It is also the right tool for questions about icons already in a codebase: which sets are in play, whether their grid heights match, and whether any referenced name has been aliased away or removed upstream.",
+    "anti_triggers": [
+      "Do not use this to design or draw a new icon; it only serves icons that already exist in Iconify's sets.",
+      "Do not use this to install a React or Vue component library; for framework components use the official @iconify packages.",
+      "Do not use this to convert an SVG into an icon set; that is what @iconify/tools does."
+    ],
+    "recipes": [
+      {
+        "title": "Find an icon when you only know what it looks like",
+        "command": "iconify-pp-cli icons search --query \"arrow that loops back\" --limit 32 --agent --select icons",
+        "explanation": "Search is fuzzy over names and set metadata, so describing the shape works better than guessing the exact name."
+      },
+      {
+        "title": "Render a brand-coloured icon straight to a file",
+        "command": "iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32",
+        "explanation": "Reads a manifest of icon names and writes one recoloured, uniformly sized SVG per entry, reporting any that were renamed upstream."
+      },
+      {
+        "title": "Choose one icon set for a whole page",
+        "command": "iconify-pp-cli set-pick rocket shield handshake clock --agent",
+        "explanation": "Ranks sets by how many of the listed concepts each covers, with licence and grid height, so you can commit to one set."
+      },
+      {
+        "title": "Cost out a migration before doing it",
+        "command": "iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent",
+        "explanation": "Classifies every icon as covered, renamed, or missing so you see the gaps before touching code."
+      },
+      {
+        "title": "Audit a repo's icon usage on review",
+        "command": "iconify-pp-cli audit ./src --agent --select findings,set_spread",
+        "explanation": "Joins the repo's icon references against the local index to surface set sprawl and names that silently resolved through an alias."
+      }
+    ],
+    "trigger_phrases": [
+      "find an icon for",
+      "what icon should I use for",
+      "download an svg icon",
+      "which icon set should I use",
+      "migrate these icons to another set",
+      "audit the icons in this repo",
+      "use iconify",
+      "run iconify"
+    ]
+  }
+}
