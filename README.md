@@ -6,6 +6,65 @@ Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured S
 
 ## Install
 
+> The `@mvanhorn/printing-press-library` commands below work once this CLI is
+> merged into the public Printing Press library. Until then, use **Install from
+> this repository** immediately after.
+
+### Install from this repository
+
+Installs the `iconify-pp-cli` and `iconify-pp-mcp` binaries. Requires Go 1.26.6 or newer.
+
+```bash
+go install github.com/oliver-mee/iconify-cli/cmd/iconify-pp-cli@latest
+go install github.com/oliver-mee/iconify-cli/cmd/iconify-pp-mcp@latest
+```
+
+Or build from a clone:
+
+```bash
+git clone https://github.com/oliver-mee/iconify-cli.git
+cd iconify-cli
+make build          # or: go build ./cmd/iconify-pp-cli
+```
+
+Then build the local index once, so the corpus commands work offline:
+
+```bash
+iconify-pp-cli index          # ~40s for all 236 sets
+```
+
+### Install the agent skill
+
+`SKILL.md` in this repository is the agent-facing skill. Install it into any
+agent supported by the [`skills`](https://github.com/vercel-labs/skills) CLI:
+
+```bash
+npx -y skills@latest add oliver-mee/iconify-cli -g -a claude-code
+```
+
+Or install it by hand for Claude Code, by symlinking this repo's `SKILL.md`
+into a skill directory named for the skill:
+
+```bash
+mkdir -p ~/.claude/skills/pp-iconify
+ln -s "$(pwd)/SKILL.md" ~/.claude/skills/pp-iconify/SKILL.md
+```
+
+The skill assumes `iconify-pp-cli` is on `PATH`; install the binary first.
+
+### Install the MCP server
+
+`iconify-pp-mcp` mirrors the whole CLI command tree as MCP tools.
+
+```bash
+claude mcp add --transport stdio --scope user iconify iconify-pp-mcp
+```
+
+For Claude Desktop, a prebuilt `.mcpb` bundle is produced by `make build` under
+`build/`; open it to install.
+
+### Install from the Printing Press library
+
 The recommended path installs both the `iconify-pp-cli` binary and the `pp-iconify` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
 
 ```bash
