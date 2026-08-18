@@ -20,10 +20,10 @@ Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured S
 
 ### Install from this repository
 
-Installs the `iconify-pp-cli` and `iconify-pp-mcp` binaries. Requires Go 1.26.6 or newer.
+Installs the `iconify` and `iconify-pp-mcp` binaries. Requires Go 1.26.6 or newer.
 
 ```bash
-go install github.com/oliver-mee/iconify-cli/cmd/iconify-pp-cli@latest
+go install github.com/oliver-mee/iconify-cli/cmd/iconify@latest
 go install github.com/oliver-mee/iconify-cli/cmd/iconify-pp-mcp@latest
 ```
 
@@ -38,7 +38,7 @@ make build          # or: go build ./cmd/iconify-pp-cli
 Then build the local index once, so the corpus commands work offline:
 
 ```bash
-iconify-pp-cli index          # ~40s for all 236 sets
+iconify index          # ~40s for all 236 sets
 ```
 
 ### Install the agent skill
@@ -58,7 +58,7 @@ mkdir -p ~/.claude/skills/pp-iconify
 ln -s "$(pwd)/SKILL.md" ~/.claude/skills/pp-iconify/SKILL.md
 ```
 
-The skill assumes `iconify-pp-cli` is on `PATH`; install the binary first.
+The skill assumes `iconify` is on `PATH`; install the binary first.
 
 ### Install the MCP server
 
@@ -73,7 +73,7 @@ For Claude Desktop, a prebuilt `.mcpb` bundle is produced by `make build` under
 
 ### Install from the Printing Press library
 
-The recommended path installs both the `iconify-pp-cli` binary and the `pp-iconify` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
+The recommended path installs both the `iconify` binary and the `pp-iconify` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
 
 ```bash
 npx -y @mvanhorn/printing-press-library install iconify
@@ -185,19 +185,19 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 
 ```bash
 # confirm the API is reachable; no credentials are needed
-iconify-pp-cli doctor --dry-run
+iconify doctor --dry-run
 
 # mirror all 236 icon sets locally so search and analysis work offline
-iconify-pp-cli index
+iconify index
 
 # find an icon by describing it
-iconify-pp-cli icons search --query "arrow right" --prefix lucide
+iconify icons search --query "arrow right" --prefix lucide
 
 # fetch it as an SVG at your brand colour
-iconify-pp-cli icons get lucide arrow-right --color '#404041' --width 32
+iconify icons get lucide arrow-right --color '#404041' --width 32
 
 # pick one set that covers everything a page needs
-iconify-pp-cli set-pick rocket shield handshake
+iconify set-pick rocket shield handshake
 
 ```
 
@@ -211,7 +211,7 @@ These capabilities aren't available in any other tool for this API.
   _Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network._
 
   ```bash
-  iconify-pp-cli index --only lucide
+  iconify index --only lucide
   ```
 
 ### Choose and stay consistent
@@ -220,21 +220,21 @@ These capabilities aren't available in any other tool for this API.
   _Reach for this before writing any UI that needs several icons, so every icon comes from one set at one stroke weight._
 
   ```bash
-  iconify-pp-cli set-pick "rocket" "shield" "handshake" --agent
+  iconify set-pick "rocket" "shield" "handshake" --agent
   ```
 - **`audit`** — Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names.
 
   _Use this on review to catch icons drifting across sets, or names that silently resolved through an alias._
 
   ```bash
-  iconify-pp-cli audit ./src --agent
+  iconify audit ./src --agent
   ```
 - **`swap`** — Map a list of icons from one set to another, classifying each as covered, renamed, or missing.
 
   _Use this when standardising an existing codebase onto one icon set, to see the cost before committing._
 
   ```bash
-  iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent
+  iconify swap mdi lucide --icons home,account,cog,rocket --agent
   ```
 
 ### Bridges to other tooling
@@ -243,7 +243,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when the project installs components from shadcn.io and you need the icon as a registry item rather than a raw SVG._
 
   ```bash
-  iconify-pp-cli shadcn lucide:home carbon:rocket --agent
+  iconify shadcn lucide:home carbon:rocket --agent
   ```
 
 ### Batch rendering
@@ -252,7 +252,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when a deck, brand kit, or design system needs many icons at one colour and size rather than one ad-hoc icon._
 
   ```bash
-  iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32
+  iconify kit icons.yaml --out assets/ --color '#404041' --width 32
   ```
 
 ### Track upstream change
@@ -261,7 +261,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this before upgrading an icon dependency, to see whether a name you rely on disappeared._
 
   ```bash
-  iconify-pp-cli diff --set lucide --agent
+  iconify diff --set lucide --agent
   ```
 
 ## Recipes
@@ -269,7 +269,7 @@ These capabilities aren't available in any other tool for this API.
 ### Find an icon when you only know what it looks like
 
 ```bash
-iconify-pp-cli icons search --query "arrow that loops back" --limit 32 --agent --select icons
+iconify icons search --query "arrow that loops back" --limit 32 --agent --select icons
 ```
 
 Search is fuzzy over names and set metadata, so describing the shape works better than guessing the exact name.
@@ -277,7 +277,7 @@ Search is fuzzy over names and set metadata, so describing the shape works bette
 ### Render a brand-coloured icon straight to a file
 
 ```bash
-iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32
+iconify kit icons.yaml --out assets/ --color '#404041' --width 32
 ```
 
 Reads a manifest of icon names and writes one recoloured, uniformly sized SVG per entry, reporting any that were renamed upstream.
@@ -285,7 +285,7 @@ Reads a manifest of icon names and writes one recoloured, uniformly sized SVG pe
 ### Choose one icon set for a whole page
 
 ```bash
-iconify-pp-cli set-pick rocket shield handshake clock --agent
+iconify set-pick rocket shield handshake clock --agent
 ```
 
 Ranks sets by how many of the listed concepts each covers, with licence and grid height, so you can commit to one set.
@@ -293,7 +293,7 @@ Ranks sets by how many of the listed concepts each covers, with licence and grid
 ### Cost out a migration before doing it
 
 ```bash
-iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent
+iconify swap mdi lucide --icons home,account,cog,rocket --agent
 ```
 
 Classifies every icon as covered, renamed, or missing so you see the gaps before touching code.
@@ -301,14 +301,14 @@ Classifies every icon as covered, renamed, or missing so you see the gaps before
 ### Audit a repo's icon usage on review
 
 ```bash
-iconify-pp-cli audit ./src --agent --select findings,set_spread
+iconify audit ./src --agent --select findings,set_spread
 ```
 
 Joins the repo's icon references against the local index to surface set sprawl and names that silently resolved through an alias.
 
 ## Usage
 
-Run `iconify-pp-cli --help` for the full command reference and flag list.
+Run `iconify --help` for the full command reference and flag list.
 
 ## Paths & environment variables
 
@@ -333,7 +333,7 @@ For containers and agent sandboxes, prefer a single relocated root:
 
 ```bash
 export ICONIFY_HOME=/srv/iconify
-iconify-pp-cli doctor
+iconify doctor
 ```
 
 Under `ICONIFY_HOME=/srv/iconify`, the four dirs resolve to `/srv/iconify/config`, `/srv/iconify/data`, `/srv/iconify/state`, and `/srv/iconify/cache`.
@@ -357,7 +357,7 @@ Precedence matters in fleets: an ambient per-kind variable such as `ICONIFY_DATA
 
 Relocation is one-way. Unsetting `ICONIFY_HOME` does not move files back to platform defaults, and `doctor` cannot find files left under a former root. Move the files manually before unsetting relocation variables.
 
-Existing installs keep working because the platform-default rung matches the legacy layout. Run `iconify-pp-cli doctor --fail-on warn` to check path warnings in automation.
+Existing installs keep working because the platform-default rung matches the legacy layout. Run `iconify doctor --fail-on warn` to check path warnings in automation.
 
 ## Commands
 
@@ -365,65 +365,65 @@ Existing installs keep working because the platform-default rung matches the leg
 
 Search and fetch individual icons
 
-- **`iconify-pp-cli icons css`** - Generate a CSS mask sprite for a list of icons from one set
-- **`iconify-pp-cli icons data`** - Fetch many icons from one set as a single IconifyJSON payload
-- **`iconify-pp-cli icons get`** - Fetch one icon as SVG, optionally recoloured and resized
-- **`iconify-pp-cli icons search`** - Search icons by keyword across every icon set
+- **`iconify icons css`** - Generate a CSS mask sprite for a list of icons from one set
+- **`iconify icons data`** - Fetch many icons from one set as a single IconifyJSON payload
+- **`iconify icons get`** - Fetch one icon as SVG, optionally recoloured and resized
+- **`iconify icons search`** - Search icons by keyword across every icon set
 
 ### keywords
 
 Expand partial keywords into search suggestions
 
-- **`iconify-pp-cli keywords`** - Suggest search keywords that start with or end with a fragment
+- **`iconify keywords`** - Suggest search keywords that start with or end with a fragment
 
 ### meta
 
 API metadata and cache invalidation
 
-- **`iconify-pp-cli meta last-modified`** - Get the last modification time per icon set, for cache invalidation and incremental sync
-- **`iconify-pp-cli meta version`** - Report the Iconify API version and serving region
+- **`iconify meta last-modified`** - Get the last modification time per icon set, for cache invalidation and incremental sync
+- **`iconify meta version`** - Report the Iconify API version and serving region
 
 ### sets
 
 Browse and inspect icon sets
 
-- **`iconify-pp-cli sets get`** - List every icon name in one set, with categories, aliases, and hidden icons
-- **`iconify-pp-cli sets list`** - List every icon set with its size, author, licence, and category
+- **`iconify sets get`** - List every icon name in one set, with categories, aliases, and hidden icons
+- **`iconify sets list`** - List every icon set with its size, author, licence, and category
 
 
 ### Self-learning loop
 
 This CLI caches per-question discovery so repeat queries skip the walk and structurally similar queries get answered via entity substitution. The loop also self-captures: every invocation is journaled locally, and failed-flag corrections plus fresh teaches surface as candidates on the next `recall` for confirm/reject judgment. Agents call `recall` before discovery and fire `teach &` after answering. See the `## Automatic learning` section in `SKILL.md` for the full protocol.
 
-- **`iconify-pp-cli recall <query>`** - Look up cached resources for a query before running discovery
-- **`iconify-pp-cli teach`** - Record a query -> resource mapping (silent on success, safe to background with `&`)
-- **`iconify-pp-cli learnings list`** - Inspect taught rows
-- **`iconify-pp-cli learnings forget <query>`** - Undo a teach
-- **`iconify-pp-cli learnings candidates`** - List auto-captured candidates awaiting confirm/reject
-- **`iconify-pp-cli learnings stats`** - Local loop metrics: recall hit rate, teach-to-reuse, playbook resolution, candidate counts
-- **`iconify-pp-cli teach-pattern`** - Install a query/resource template up front
-- **`iconify-pp-cli teach-lookup`** - Add an entity mapping (e.g. country code, team alias) for pattern substitution
+- **`iconify recall <query>`** - Look up cached resources for a query before running discovery
+- **`iconify teach`** - Record a query -> resource mapping (silent on success, safe to background with `&`)
+- **`iconify learnings list`** - Inspect taught rows
+- **`iconify learnings forget <query>`** - Undo a teach
+- **`iconify learnings candidates`** - List auto-captured candidates awaiting confirm/reject
+- **`iconify learnings stats`** - Local loop metrics: recall hit rate, teach-to-reuse, playbook resolution, candidate counts
+- **`iconify teach-pattern`** - Install a query/resource template up front
+- **`iconify teach-lookup`** - Add an entity mapping (e.g. country code, team alias) for pattern substitution
 
 Pass `--no-learn` or set `ICONIFY_NO_LEARN=true` to disable the loop for deterministic flows.
 
-The local store's schema version stamp is one-way: once this version of `iconify-pp-cli` opens the database, older binaries refuse it with a version error — upgrade the binary rather than downgrading.
+The local store's schema version stamp is one-way: once this version of `iconify` opens the database, older binaries refuse it with a version error — upgrade the binary rather than downgrading.
 
 ## Output Formats
 
 ```bash
 # Human-readable table (default in terminal, JSON when piped)
-iconify-pp-cli icons get mock-value mock-value
+iconify icons get mock-value mock-value
 
 # JSON for scripting and agents
-iconify-pp-cli icons get mock-value mock-value --json
+iconify icons get mock-value mock-value --json
 # Filter to specific fields by name
-iconify-pp-cli icons get mock-value mock-value --json --select <field>[,<field>...]
+iconify icons get mock-value mock-value --json --select <field>[,<field>...]
 
 # Dry run — show the request without sending
-iconify-pp-cli icons get mock-value mock-value --dry-run
+iconify icons get mock-value mock-value --dry-run
 
 # Agent mode — JSON + compact + no prompts in one flag
-iconify-pp-cli icons get mock-value mock-value --agent
+iconify icons get mock-value mock-value --agent
 ```
 
 ## Agent Usage
@@ -443,14 +443,14 @@ Exit codes: `0` success, `2` usage error, `3` not found, `5` API error, `7` rate
 ## Health Check
 
 ```bash
-iconify-pp-cli doctor
+iconify doctor
 ```
 
 Verifies configuration and connectivity to the API.
 
 ## Configuration
 
-Run `iconify-pp-cli doctor` to see the resolved config, data, state, and cache directories. The platform-default config path is `~/.config/iconify/config.toml`; `--home`, `ICONIFY_HOME`, and per-kind env vars can relocate it.
+Run `iconify doctor` to see the resolved config, data, state, and cache directories. The platform-default config path is `~/.config/iconify/config.toml`; `--home`, `ICONIFY_HOME`, and per-kind env vars can relocate it.
 
 Static request headers can be configured under `headers`; per-command header overrides take precedence.
 

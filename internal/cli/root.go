@@ -207,7 +207,7 @@ func isCobraUsageError(err error) bool {
 
 func newRootCmd(flags *rootFlags) *cobra.Command {
 	rootCmd := &cobra.Command{
-		Use:   "iconify-pp-cli",
+		Use:   invokedName(),
 		Short: `Iconify CLI — Every Iconify icon from one Go binary, plus a local index that answers set-coverage, migration, and audit questions no…`,
 		Long: `Iconify CLI — Every Iconify icon from one Go binary, plus a local index that answers set-coverage, migration, and audit questions no icon tool answers today.
 

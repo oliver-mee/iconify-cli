@@ -9,10 +9,10 @@ metadata:
   openclaw:
     requires:
       bins:
-        - iconify-pp-cli
+        - iconify
     install:
       - kind: go
-        bins: [iconify-pp-cli]
+        bins: [iconify]
         module: github.com/mvanhorn/printing-press-library/library/developer-tools/iconify/cmd/iconify-pp-cli
 ---
 
@@ -20,13 +20,13 @@ metadata:
 
 ## Prerequisites: Install the CLI
 
-This skill drives the `iconify-pp-cli` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
+This skill drives the `iconify` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
 
 1. Install via the Printing Press installer. It defaults binaries to `$HOME/.local/bin` on macOS/Linux and `%LOCALAPPDATA%\Programs\PrintingPress\bin` on Windows:
    ```bash
    npx -y @mvanhorn/printing-press-library install iconify --cli-only
    ```
-2. Verify: `iconify-pp-cli --version`
+2. Verify: `iconify --version`
 3. Ensure the reported install directory is on `$PATH` for the agent/runtime that will invoke this skill.
 
 If the `npx` install fails (no Node, offline, etc.), fall back to a direct Go install (requires Go 1.26.6 or newer). This installs into `$GOPATH/bin` (default `$HOME/go/bin`), so add that directory to `$PATH` instead:
@@ -60,7 +60,7 @@ These capabilities aren't available in any other tool for this API.
   _Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network._
 
   ```bash
-  iconify-pp-cli index --only lucide
+  iconify index --only lucide
   ```
 
 ### Choose and stay consistent
@@ -69,21 +69,21 @@ These capabilities aren't available in any other tool for this API.
   _Reach for this before writing any UI that needs several icons, so every icon comes from one set at one stroke weight._
 
   ```bash
-  iconify-pp-cli set-pick "rocket" "shield" "handshake" --agent
+  iconify set-pick "rocket" "shield" "handshake" --agent
   ```
 - **`audit`** — Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names.
 
   _Use this on review to catch icons drifting across sets, or names that silently resolved through an alias._
 
   ```bash
-  iconify-pp-cli audit ./src --agent
+  iconify audit ./src --agent
   ```
 - **`swap`** — Map a list of icons from one set to another, classifying each as covered, renamed, or missing.
 
   _Use this when standardising an existing codebase onto one icon set, to see the cost before committing._
 
   ```bash
-  iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent
+  iconify swap mdi lucide --icons home,account,cog,rocket --agent
   ```
 
 ### Bridges to other tooling
@@ -92,7 +92,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when the project installs components from shadcn.io and you need the icon as a registry item rather than a raw SVG._
 
   ```bash
-  iconify-pp-cli shadcn lucide:home carbon:rocket --agent
+  iconify shadcn lucide:home carbon:rocket --agent
   ```
 
 ### Batch rendering
@@ -101,7 +101,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when a deck, brand kit, or design system needs many icons at one colour and size rather than one ad-hoc icon._
 
   ```bash
-  iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32
+  iconify kit icons.yaml --out assets/ --color '#404041' --width 32
   ```
 
 ### Track upstream change
@@ -110,31 +110,31 @@ These capabilities aren't available in any other tool for this API.
   _Use this before upgrading an icon dependency, to see whether a name you rely on disappeared._
 
   ```bash
-  iconify-pp-cli diff --set lucide --agent
+  iconify diff --set lucide --agent
   ```
 
 ## Command Reference
 
 **icons** — Search and fetch individual icons
 
-- `iconify-pp-cli icons css` — Generate a CSS mask sprite for a list of icons from one set
-- `iconify-pp-cli icons data` — Fetch many icons from one set as a single IconifyJSON payload
-- `iconify-pp-cli icons get` — Fetch one icon as SVG, optionally recoloured and resized
-- `iconify-pp-cli icons search` — Search icons by keyword across every icon set
+- `iconify icons css` — Generate a CSS mask sprite for a list of icons from one set
+- `iconify icons data` — Fetch many icons from one set as a single IconifyJSON payload
+- `iconify icons get` — Fetch one icon as SVG, optionally recoloured and resized
+- `iconify icons search` — Search icons by keyword across every icon set
 
 **keywords** — Expand partial keywords into search suggestions
 
-- `iconify-pp-cli keywords` — Suggest search keywords that start with or end with a fragment
+- `iconify keywords` — Suggest search keywords that start with or end with a fragment
 
 **meta** — API metadata and cache invalidation
 
-- `iconify-pp-cli meta last-modified` — Get the last modification time per icon set, for cache invalidation and incremental sync
-- `iconify-pp-cli meta version` — Report the Iconify API version and serving region
+- `iconify meta last-modified` — Get the last modification time per icon set, for cache invalidation and incremental sync
+- `iconify meta version` — Report the Iconify API version and serving region
 
 **sets** — Browse and inspect icon sets
 
-- `iconify-pp-cli sets get` — List every icon name in one set, with categories, aliases, and hidden icons
-- `iconify-pp-cli sets list` — List every icon set with its size, author, licence, and category
+- `iconify sets get` — List every icon name in one set, with categories, aliases, and hidden icons
+- `iconify sets list` — List every icon set with its size, author, licence, and category
 
 
 ### Finding the right command
@@ -142,7 +142,7 @@ These capabilities aren't available in any other tool for this API.
 When you know what you want to do but not which command does it, ask the CLI directly:
 
 ```bash
-iconify-pp-cli which "<capability in your own words>"
+iconify which "<capability in your own words>"
 ```
 
 `which` resolves a natural-language capability query to the best matching command from this CLI's curated feature index. Exit code `0` means at least one match; exit code `2` means no confident match — fall back to `--help` or use a narrower query.
@@ -152,7 +152,7 @@ iconify-pp-cli which "<capability in your own words>"
 ### Find an icon when you only know what it looks like
 
 ```bash
-iconify-pp-cli icons search --query "arrow that loops back" --limit 32 --agent --select icons
+iconify icons search --query "arrow that loops back" --limit 32 --agent --select icons
 ```
 
 Search is fuzzy over names and set metadata, so describing the shape works better than guessing the exact name.
@@ -160,7 +160,7 @@ Search is fuzzy over names and set metadata, so describing the shape works bette
 ### Render a brand-coloured icon straight to a file
 
 ```bash
-iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32
+iconify kit icons.yaml --out assets/ --color '#404041' --width 32
 ```
 
 Reads a manifest of icon names and writes one recoloured, uniformly sized SVG per entry, reporting any that were renamed upstream.
@@ -168,7 +168,7 @@ Reads a manifest of icon names and writes one recoloured, uniformly sized SVG pe
 ### Choose one icon set for a whole page
 
 ```bash
-iconify-pp-cli set-pick rocket shield handshake clock --agent
+iconify set-pick rocket shield handshake clock --agent
 ```
 
 Ranks sets by how many of the listed concepts each covers, with licence and grid height, so you can commit to one set.
@@ -176,7 +176,7 @@ Ranks sets by how many of the listed concepts each covers, with licence and grid
 ### Cost out a migration before doing it
 
 ```bash
-iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent
+iconify swap mdi lucide --icons home,account,cog,rocket --agent
 ```
 
 Classifies every icon as covered, renamed, or missing so you see the gaps before touching code.
@@ -184,7 +184,7 @@ Classifies every icon as covered, renamed, or missing so you see the gaps before
 ### Audit a repo's icon usage on review
 
 ```bash
-iconify-pp-cli audit ./src --agent --select findings,set_spread
+iconify audit ./src --agent --select findings,set_spread
 ```
 
 Joins the repo's icon references against the local index to surface set sprawl and names that silently resolved through an alias.
@@ -193,7 +193,7 @@ Joins the repo's icon references against the local index to surface set sprawl a
 
 No authentication required.
 
-Run `iconify-pp-cli doctor` to verify setup.
+Run `iconify doctor` to verify setup.
 
 ## Agent Mode
 
@@ -203,7 +203,7 @@ Add `--agent` to any command. Expands to: `--json --compact --no-input --no-colo
 - **Filterable** — `--select` keeps a subset of fields. Dotted paths descend into nested structures; arrays traverse element-wise. Critical for keeping context small on verbose APIs:
 
   ```bash
-  iconify-pp-cli icons get mock-value mock-value --agent
+  iconify icons get mock-value mock-value --agent
   ```
 - **Previewable** — `--dry-run` shows the request without sending
 - **Offline-friendly** — sync/search commands can use the local SQLite store when available
@@ -232,7 +232,7 @@ Agents should treat the CLI's path resolver as part of the runtime contract:
 - Resolution order is per-kind env var, `--home`, `ICONIFY_HOME`, XDG (`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_STATE_HOME`, `XDG_CACHE_HOME`), then platform defaults.
 - `config` contains settings like `config.toml` and profiles. `data` contains `credentials.toml`, `data.db`, cookies, and auth sidecars. `state` contains persisted queries, jobs, and `teach.log`. `cache` contains regenerable HTTP/cache files.
 - Stored secrets live in `credentials.toml` under the data dir. Existing legacy `config.toml` secrets are read for compatibility and leave `config.toml` on the first auth write.
-- Run `iconify-pp-cli doctor --fail-on warn` to surface path and credential-location warnings. `agent-context` exposes a schema v4 `paths` block for agents that need the resolved dirs.
+- Run `iconify doctor --fail-on warn` to surface path and credential-location warnings. `agent-context` exposes a schema v4 `paths` block for agents that need the resolved dirs.
 - For MCP, pass relocation through the MCP host config. The MCP binary does not inherit CLI flags:
 
   ```json
@@ -259,7 +259,7 @@ This CLI ships a self-capturing learning loop. The CLI does its own bookkeeping:
 Before list/search/drill commands on a new user question, run:
 
 ```bash
-iconify-pp-cli recall "<user's question>" --agent
+iconify recall "<user's question>" --agent
 ```
 
 The response envelope:
@@ -282,7 +282,7 @@ The response envelope:
     { "id": 12, "class": "flag_alias | playbook_candidate",
       "summary": "...", "sightings": 3, "last_seen": "...",
       "rationale": "...",
-      "next_action": ["<trial command>", "iconify-pp-cli learnings confirm 12"] }
+      "next_action": ["<trial command>", "iconify learnings confirm 12"] }
   ],
   "playbook": {
     "query_family": "...",
@@ -321,7 +321,7 @@ if Playbook present:
        for the entity slot tokens. If a step's slot is unresolved, fall back to
        discovery for that step only.
     -> the Playbook's expected_tool_calls is a budget; if you find yourself running
-       materially more, record the divergence via `iconify-pp-cli playbook amend`
+       materially more, record the divergence via `iconify playbook amend`
        at end-of-session.
 
 elif Notes present (no Playbook):
@@ -347,7 +347,7 @@ else:  // Found == false, no playbook, no notes
 
 Playbook and Notes are orthogonal to the per-resource path. A recall response can carry both a Playbook AND a `Results[]` hit - use both: the Playbook tells you which choreography to run; the resource hits short-circuit specific steps. Default to skipping `mismatches`; pass `--debug-mismatches` only when investigating cold-start surprises.
 
-Candidate judgment details: `learnings confirm <id>` prints the candidate's full payload before materializing it - check that the printed payload matches the behavior you verified. `learnings reject <id>` tombstones the derivation signature so the same candidate does not resurface. The envelope carries only the few candidates worth acting on now; `iconify-pp-cli learnings candidates` lists the full open set.
+Candidate judgment details: `learnings confirm <id>` prints the candidate's full payload before materializing it - check that the printed payload matches the behavior you verified. `learnings reject <id>` tombstones the derivation signature so the same candidate does not resurface. The envelope carries only the few candidates worth acting on now; `iconify learnings candidates` lists the full open set.
 
 Graceful degradation: if `learnings confirm` is an unknown command, you are driving an older binary - ignore the candidates guidance and follow the rest of the protocol.
 
@@ -359,7 +359,7 @@ Graceful degradation: if `learnings confirm` is an unknown command, you are driv
 - `similar_shape_different_entity:<canonical>` (top-level): a structurally matching row exists but its canonical entity differs from the live query's. Treated as cold start; the warning carries the conflicting canonical as a hint, but the row is NOT promoted into Results.
 - `ambiguous_alias` (top-level): a single query entity resolved to multiple canonicals (e.g., "Cards" → Arizona Cardinals + St. Louis Cardinals). Surface the ambiguity from context before committing to a resource.
 - `candidates_present` (top-level): the envelope carries a `candidates` section. Handle it via the candidates branch in Step 2 before anything else.
-- `lookup_refresh_available` (top-level): an entity in the query has no lookup row yet, but synced data could provide one. Run `iconify-pp-cli sync` to refresh entity lookups.
+- `lookup_refresh_available` (top-level): an entity in the query has no lookup row yet, but synced data could provide one. Run `iconify sync` to refresh entity lookups.
 - Top-level `no_learnings_for_query_family`: the table had no rows above the Jaccard floor. Pure cold start.
 
 ### Step 4: `teach &` after finalizing your response - always
@@ -367,7 +367,7 @@ Graceful degradation: if `learnings confirm` is an unknown command, you are driv
 Teaching is unconditional. After resolving a query the store could not answer, background-teach the final resource mapping - no call-count threshold, no judging whether it was "worth" learning. The teach is the anchor of the loop: it triggers playbook synthesis for a family without a playbook, and same-referent phrasings fold into one family so near-duplicate teaches do not fragment the store. Fire it after assembling your user-facing response but BEFORE emitting it, with a shell `&` so the call returns immediately:
 
 ```bash
-iconify-pp-cli teach --query "<user's question>" --resource-type <type> --resource <id1> --resource <id2>
+iconify teach --query "<user's question>" --resource-type <type> --resource <id1> --resource <id2>
 # (append shell `&` to background it)
 ```
 
@@ -381,7 +381,7 @@ You do not need to decide whether a session "deserves" a playbook: a teach on a 
 
 ```bash
 # Common case: record both the resource learning AND the playbook in one call.
-iconify-pp-cli teach \
+iconify teach \
   --query "<user's question>" \
   --resource <id> \
   --playbook-file ~/playbooks/<shape>.json \
@@ -389,7 +389,7 @@ iconify-pp-cli teach \
 # (append shell `&` to background it)
 
 # Alternate: playbook-only (no resource to record alongside).
-iconify-pp-cli teach-playbook \
+iconify teach-playbook \
   --query "<user's question>" \
   --playbook-file ~/playbooks/<shape>.json \
   --notes-file ~/playbooks/<shape>-notes.md
@@ -404,7 +404,7 @@ When you DO find a playbook on a future recall, treat it as ground truth: replay
 If your debug-protocol response identifies a concrete correction the notes or playbook should know — a workaround, an undocumented endpoint shape, a stale field name, observed schema drift, an empty-payload fallback — fire `playbook amend` BEFORE emitting your user-facing response. Same fire-and-forget posture as `teach`.
 
 ```bash
-iconify-pp-cli playbook amend \
+iconify playbook amend \
   --query "<exact recall query string>" \
   --add-note "<your concrete correction>"
 # (append shell `&` to background it)
@@ -435,7 +435,7 @@ If a correction is only meaningful with user-specific context, it belongs in a p
 
 ### Measuring the loop
 
-`iconify-pp-cli learnings stats` reports recall hit rate, teach-to-reuse, playbook resolution rate, and candidate confirm/reject counts from the local `learn_events` table. Rates are null until they have a denominator; everything stays on this machine. Use it to check whether the loop is earning its keep for this CLI.
+`iconify learnings stats` reports recall hit rate, teach-to-reuse, playbook resolution rate, and candidate confirm/reject counts from the local `learn_events` table. Rates are null until they have a denominator; everything stays on this machine. Use it to check whether the loop is earning its keep for this CLI.
 
 ### Disabling learning
 
@@ -447,9 +447,9 @@ If a correction is only meaningful with user-specific context, it belongs in a p
 When you (or the agent) notice something off about this CLI, record it:
 
 ```
-iconify-pp-cli feedback "the --since flag is inclusive but docs say exclusive"
-iconify-pp-cli feedback --stdin < notes.txt
-iconify-pp-cli feedback list --json --limit 10
+iconify feedback "the --since flag is inclusive but docs say exclusive"
+iconify feedback --stdin < notes.txt
+iconify feedback list --json --limit 10
 ```
 
 Entries are stored locally as `feedback.jsonl` under the resolved data dir. They are never POSTed unless `ICONIFY_FEEDBACK_ENDPOINT` is set AND either `--send` is passed or `ICONIFY_FEEDBACK_AUTO_SEND=true`. Default behavior is local-only.
@@ -473,11 +473,11 @@ Unknown schemes are refused with a structured error naming the supported set. We
 A profile is a saved set of flag values, reused across invocations. Use it when a scheduled or recurring agent reuses the same saved flags while providing different input each run.
 
 ```
-iconify-pp-cli profile save briefing --json
-iconify-pp-cli --profile briefing icons get mock-value mock-value
-iconify-pp-cli profile list --json
-iconify-pp-cli profile show briefing
-iconify-pp-cli profile delete briefing --yes
+iconify profile save briefing --json
+iconify --profile briefing icons get mock-value mock-value
+iconify profile list --json
+iconify profile show briefing
+iconify profile delete briefing --yes
 ```
 
 Explicit flags always win over profile values; profile values win over defaults. `agent-context` lists all available profiles under `available_profiles` so introspecting agents discover them at runtime.
@@ -497,7 +497,7 @@ Explicit flags always win over profile values; profile values win over defaults.
 
 Parse `$ARGUMENTS`:
 
-1. **Empty, `help`, or `--help`** → show `iconify-pp-cli --help` output
+1. **Empty, `help`, or `--help`** → show `iconify --help` output
 2. **Starts with `install`** → ends with `mcp` → MCP installation; otherwise → see Prerequisites above
 3. **Anything else** → Direct Use (execute as CLI command with `--agent`)
 
@@ -505,7 +505,7 @@ Parse `$ARGUMENTS`:
 
 1. Install the MCP server:
    ```bash
-   go install github.com/mvanhorn/printing-press-library/library/developer-tools/iconify/cmd/iconify-pp-mcp@latest
+   go install github.com/oliver-mee/iconify-cli/cmd/iconify-pp-mcp@latest
    ```
 2. Register with Claude Code:
    ```bash
@@ -515,11 +515,11 @@ Parse `$ARGUMENTS`:
 
 ## Direct Use
 
-1. Check if installed: `which iconify-pp-cli`
+1. Check if installed: `which iconify`
    If not found, offer to install (see Prerequisites at the top of this skill).
 2. Match the user query to the best command from the Unique Capabilities and Command Reference above.
 3. Execute with the `--agent` flag:
    ```bash
-   iconify-pp-cli <command> [subcommand] [args] --agent
+   iconify <command> [subcommand] [args] --agent
    ```
-4. If ambiguous, drill into subcommand help: `iconify-pp-cli <command> --help`.
+4. If ambiguous, drill into subcommand help: `iconify <command> --help`.
