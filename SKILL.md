@@ -69,21 +69,21 @@ These capabilities aren't available in any other tool for this API.
   _Reach for this before writing any UI that needs several icons, so every icon comes from one set at one stroke weight._
 
   ```bash
-  iconify set-pick "rocket" "shield" "handshake" --agent
+  iconify-pp-cli set-pick "rocket" "shield" "handshake" --agent
   ```
 - **`audit`** — Scan a codebase for Iconify references and report set spread, grid-height mismatches, palette mixing, and dead names.
 
   _Use this on review to catch icons drifting across sets, or names that silently resolved through an alias._
 
   ```bash
-  iconify audit ./src --agent
+  iconify-pp-cli audit ./src --agent
   ```
 - **`swap`** — Map a list of icons from one set to another, classifying each as covered, renamed, or missing.
 
   _Use this when standardising an existing codebase onto one icon set, to see the cost before committing._
 
   ```bash
-  iconify swap mdi lucide --icons home,account,cog,rocket --agent
+  iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent
   ```
 
 ### Bridges to other tooling
@@ -92,7 +92,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when the project installs components from shadcn.io and you need the icon as a registry item rather than a raw SVG._
 
   ```bash
-  iconify shadcn lucide:home carbon:rocket --agent
+  iconify-pp-cli shadcn lucide:home carbon:rocket --agent
   ```
 
 ### Batch rendering
@@ -101,7 +101,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this when a deck, brand kit, or design system needs many icons at one colour and size rather than one ad-hoc icon._
 
   ```bash
-  iconify kit icons.yaml --out assets/ --color '#404041' --width 32
+  iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32
   ```
 
 ### Track upstream change
@@ -110,7 +110,7 @@ These capabilities aren't available in any other tool for this API.
   _Use this before upgrading an icon dependency, to see whether a name you rely on disappeared._
 
   ```bash
-  iconify diff --set lucide --agent
+  iconify-pp-cli diff --set lucide --agent
   ```
 
 ## Command Reference
