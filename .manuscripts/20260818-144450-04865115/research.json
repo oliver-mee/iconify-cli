@@ -90,7 +90,7 @@
       "command": "index",
       "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets.",
       "rationale": "The API returns collections as one object and icon names only per-prefix, so no generated sync path can build a queryable corpus; this fans out and stores it.",
-      "example": "iconify-pp-cli index --only lucide",
+      "example": "iconify index --only lucide",
       "why_it_matters": "Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network.",
       "group": "Local state that compounds"
     },
@@ -155,7 +155,7 @@
       "command": "index",
       "description": "Mirror icon sets and their icon names into local SQLite for offline search and analysis; --only scopes it to specific sets.",
       "rationale": "The API returns collections as one object and icon names only per-prefix, so no generated sync path can build a queryable corpus; this fans out and stores it.",
-      "example": "iconify-pp-cli index --only lucide",
+      "example": "iconify index --only lucide",
       "why_it_matters": "Run this once before set-pick, swap, audit, or shadcn; it is what makes them answerable without the network.",
       "group": "Local state that compounds"
     },
@@ -220,23 +220,23 @@
     "value_prop": "Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured SVG, and generate CSS or bulk JSON for a build step. The local SQLite mirror turns the corpus into something you can ask real questions of: which single set covers every icon this page needs, what breaks if you migrate from mdi to lucide, and which icons in this repo silently resolved through an alias.",
     "quickstart": [
       {
-        "command": "iconify-pp-cli doctor --dry-run",
+        "command": "iconify doctor --dry-run",
         "comment": "confirm the API is reachable; no credentials are needed"
       },
       {
-        "command": "iconify-pp-cli index",
+        "command": "iconify index",
         "comment": "mirror all 236 icon sets locally so search and analysis work offline"
       },
       {
-        "command": "iconify-pp-cli icons search --query \"arrow right\" --prefix lucide",
+        "command": "iconify icons search --query \"arrow right\" --prefix lucide",
         "comment": "find an icon by describing it"
       },
       {
-        "command": "iconify-pp-cli icons get lucide arrow-right --color '#404041' --width 32",
+        "command": "iconify icons get lucide arrow-right --color '#404041' --width 32",
         "comment": "fetch it as an SVG at your brand colour"
       },
       {
-        "command": "iconify-pp-cli set-pick rocket shield handshake",
+        "command": "iconify set-pick rocket shield handshake",
         "comment": "pick one set that covers everything a page needs"
       }
     ],
@@ -267,27 +267,27 @@
     "recipes": [
       {
         "title": "Find an icon when you only know what it looks like",
-        "command": "iconify-pp-cli icons search --query \"arrow that loops back\" --limit 32 --agent --select icons",
+        "command": "iconify icons search --query \"arrow that loops back\" --limit 32 --agent --select icons",
         "explanation": "Search is fuzzy over names and set metadata, so describing the shape works better than guessing the exact name."
       },
       {
         "title": "Render a brand-coloured icon straight to a file",
-        "command": "iconify-pp-cli kit icons.yaml --out assets/ --color '#404041' --width 32",
+        "command": "iconify kit icons.yaml --out assets/ --color '#404041' --width 32",
         "explanation": "Reads a manifest of icon names and writes one recoloured, uniformly sized SVG per entry, reporting any that were renamed upstream."
       },
       {
         "title": "Choose one icon set for a whole page",
-        "command": "iconify-pp-cli set-pick rocket shield handshake clock --agent",
+        "command": "iconify set-pick rocket shield handshake clock --agent",
         "explanation": "Ranks sets by how many of the listed concepts each covers, with licence and grid height, so you can commit to one set."
       },
       {
         "title": "Cost out a migration before doing it",
-        "command": "iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket --agent",
+        "command": "iconify swap mdi lucide --icons home,account,cog,rocket --agent",
         "explanation": "Classifies every icon as covered, renamed, or missing so you see the gaps before touching code."
       },
       {
         "title": "Audit a repo's icon usage on review",
-        "command": "iconify-pp-cli audit ./src --agent --select findings,set_spread",
+        "command": "iconify audit ./src --agent --select findings,set_spread",
         "explanation": "Joins the repo's icon references against the local index to surface set sprawl and names that silently resolved through an alias."
       }
     ],

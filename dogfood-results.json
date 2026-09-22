@@ -1,8 +1,8 @@
 {
-  "dir": "\u003ccli-dir\u003e/iconify-pp-cli",
+  "dir": "\u003ccli-dir\u003e/20260818-iconify-cli",
   "spec_path": "\u003ccli-dir\u003e/spec.yaml",
   "spec_source": "bundled",
-  "verdict": "PASS",
+  "verdict": "WARN",
   "path_check": {
     "tested": 0,
     "valid": 0,
@@ -32,8 +32,17 @@
     "dead": 0
   },
   "dead_functions": {
-    "total": 84,
-    "dead": 0
+    "total": 83,
+    "dead": 7,
+    "items": [
+      "camelToKebab",
+      "filterFieldsRec",
+      "filterFieldsRecAtDepth",
+      "filterListEnvelopeFields",
+      "filterNestedListEnvelopeFields",
+      "matchSelectSegment",
+      "selectFieldKeys"
+    ]
   },
   "pipeline_check": {
     "sync_calls_domain": true,
@@ -84,17 +93,19 @@
     "checked": 11
   },
   "print_json_filtered_check": {
-    "checked": 47
+    "checked": 50
   },
   "test_presence": {
     "checked": 3
   },
   "naming_check": {
-    "checked": 47
+    "checked": 50
   },
   "sync_param_drop_check": {
     "checked": 0,
     "skipped": true
   },
-  "issues": null
+  "issues": [
+    "7 dead helper functions found"
+  ]
 }

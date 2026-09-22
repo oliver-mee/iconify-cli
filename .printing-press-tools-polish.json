@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-18T07:57:08.13537022Z",
-  "cli_dir": "\u003ccli-dir\u003e/iconify-pp-cli",
+  "timestamp": "2026-09-22T06:39:53.737302565Z",
+  "cli_dir": "\u003ccli-dir\u003e/20260818-iconify-cli",
   "findings": [
     {
       "kind": "thin-short",
@@ -23,6 +23,6 @@
   ],
   "scorecard_before": {
     "mcp_description_quality": 10,
-    "captured": "2026-08-18T07:41:32.760440136Z"
+    "captured": "2026-09-22T06:30:04.53024698Z"
   }
 }

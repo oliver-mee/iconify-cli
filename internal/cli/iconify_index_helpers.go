@@ -59,12 +59,12 @@ func openIconIndexState(ctx context.Context, dbPath string) (*store.Store, bool,
 // output stays a valid empty result so an agent can parse it.
 func hintEmptyIndex(cmd *cobra.Command, dbPath string) {
 	fmt.Fprintf(cmd.ErrOrStderr(),
-		"no local icon index at %s\nrun: iconify-pp-cli index\n", iconifyIndexDBPath(dbPath))
+		"no local icon index at %s\nrun: %s index\n", iconifyIndexDBPath(dbPath), invokedName())
 }
 
 // errIndexEmpty is returned when a corpus-reading command runs before `index`.
 type errIndexEmpty struct{ path string }
 
 func (e errIndexEmpty) Error() string {
-	return fmt.Sprintf("local icon index at %s is empty; run 'iconify-pp-cli index' first", e.path)
+	return fmt.Sprintf("local icon index at %s is empty; run '%s index' first", e.path, invokedName())
 }

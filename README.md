@@ -4,19 +4,15 @@
 
 Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured SVG, and generate CSS or bulk JSON for a build step. The local SQLite mirror turns the corpus into something you can ask real questions of: which single set covers every icon this page needs, what breaks if you migrate from mdi to lucide, and which icons in this repo silently resolved through an alias.
 
+## Install
+
 > **Not in the public Printing Press library yet.** The library's publish gate
 > counts a command that can only be tested with `--dry-run` as unverified, which
 > blocks any command whose job is writing files (here, `kit`). Tracked upstream in
 > [cli-printing-press#4046](https://github.com/mvanhorn/cli-printing-press/issues/4046).
-> Until that lands, install from this repository using the section below. The
+> Until that lands, use **Install from this repository** immediately below. The
 > `@mvanhorn/printing-press-library` commands further down will start working once
 > it is merged there.
-
-## Install
-
-> The `@mvanhorn/printing-press-library` commands below work once this CLI is
-> merged into the public Printing Press library. Until then, use **Install from
-> this repository** immediately after.
 
 ### Install from this repository
 

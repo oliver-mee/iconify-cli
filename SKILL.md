@@ -20,13 +20,13 @@ metadata:
 
 ## Prerequisites: Install the CLI
 
-This skill drives the `iconify` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
+This skill drives the `iconify-pp-cli` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
 
 1. Install via the Printing Press installer. It defaults binaries to `$HOME/.local/bin` on macOS/Linux and `%LOCALAPPDATA%\Programs\PrintingPress\bin` on Windows:
    ```bash
    npx -y @mvanhorn/printing-press-library install iconify --cli-only
    ```
-2. Verify: `iconify --version`
+2. Verify: `iconify-pp-cli --version`
 3. Ensure the reported install directory is on `$PATH` for the agent/runtime that will invoke this skill.
 
 If the `npx` install fails (no Node, offline, etc.), fall back to a direct Go install (requires Go 1.26.6 or newer). This installs into `$GOPATH/bin` (default `$HOME/go/bin`), so add that directory to `$PATH` instead:
@@ -38,6 +38,14 @@ go install github.com/mvanhorn/printing-press-library/library/developer-tools/ic
 If `--version` reports "command not found" after install, the runtime cannot see the binary directory on `$PATH`. Do not proceed with skill commands until verification succeeds.
 
 Search 236 icon sets and roughly 294,000 icons, fetch any icon as a recoloured SVG, and generate CSS or bulk JSON for a build step. The local SQLite mirror turns the corpus into something you can ask real questions of: which single set covers every icon this page needs, what breaks if you migrate from mdi to lucide, and which icons in this repo silently resolved through an alias.
+
+## Binary Name
+
+The commands in this skill use `iconify`, the name this CLI installs under from its own repository. The Printing Press installer above installs the same program as `iconify-pp-cli`; if that is the name on your `PATH`, use it in place of `iconify` everywhere below. Until this CLI is in the public library, install from the repository instead:
+
+```bash
+go install github.com/oliver-mee/iconify-cli/cmd/iconify@latest
+```
 
 ## When to Use This CLI
 

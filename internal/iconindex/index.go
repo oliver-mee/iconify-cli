@@ -295,7 +295,7 @@ func Build(ctx context.Context, api Fetcher, db *sql.DB, opts BuildOptions) (*Re
 	// but SQLite allows a single writer, and concurrent replaceIcons
 	// transactions silently lost sets to lock contention.
 	done := 0
-	var firstWriteErr error
+	var firstErr error
 	for r := range results {
 		done++
 		if opts.OnProgress != nil {
@@ -303,12 +303,15 @@ func Build(ctx context.Context, api Fetcher, db *sql.DB, opts BuildOptions) (*Re
 		}
 		if r.err != nil {
 			res.Failed = append(res.Failed, r.prefix)
+			if firstErr == nil {
+				firstErr = fmt.Errorf("fetching %s: %w", r.prefix, r.err)
+			}
 			continue
 		}
 		if err := replaceIcons(ctx, db, r.prefix, r.rows, r.lm); err != nil {
 			res.Failed = append(res.Failed, r.prefix)
-			if firstWriteErr == nil {
-				firstWriteErr = fmt.Errorf("writing %s: %w", r.prefix, err)
+			if firstErr == nil {
+				firstErr = fmt.Errorf("writing %s: %w", r.prefix, err)
 			}
 			continue
 		}
@@ -317,8 +320,10 @@ func Build(ctx context.Context, api Fetcher, db *sql.DB, opts BuildOptions) (*Re
 	}
 	// A partial index is worse than a loud failure: the caller would get empty
 	// coverage results for the missing sets with no signal that they are absent.
-	if firstWriteErr != nil && len(res.Failed) > len(sets)/10 {
-		return res, fmt.Errorf("indexing failed for %d of %d sets: %w", len(res.Failed), len(sets), firstWriteErr)
+	// Fetch failures count too; a rate-limited API otherwise reported success
+	// with every requested set listed under "failed" and no reason given.
+	if firstErr != nil && len(res.Failed) > len(sets)/10 {
+		return res, fmt.Errorf("indexing failed for %d of %d sets: %w", len(res.Failed), len(sets), firstErr)
 	}
 	sort.Strings(res.Refreshed)
 	sort.Strings(res.Failed)

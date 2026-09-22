@@ -65,7 +65,7 @@ func ensureIndexed(ctx context.Context, cmd *cobra.Command, db *store.Store, fla
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(cmd.ErrOrStderr(), "indexing %d icon set(s) on demand; run 'iconify-pp-cli index' for the full corpus\n", len(want))
+	fmt.Fprintf(cmd.ErrOrStderr(), "indexing %d icon set(s) on demand; run '%s index' for the full corpus\n", len(want), invokedName())
 	if _, err := iconindex.Build(ctx, api, db.DB(), iconindex.BuildOptions{Only: want, Concurrency: 6}); err != nil {
 		return fmt.Errorf("indexing %v: %w", want, err)
 	}
