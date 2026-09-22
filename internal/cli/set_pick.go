@@ -38,6 +38,9 @@ already present in a codebase; use 'audit'.`, "\n"),
   iconify-pp-cli set-pick "arrow right" clock --license MIT`, "\n"),
 		Annotations: map[string]string{
 			"mcp:read-only": "true",
+			// Concepts are free text, not ids, so the live matrix cannot invent
+			// them. These three exercise a real multi-concept coverage query.
+			"pp:happy-args": "<concept>=rocket;<concept>=shield;<concept>=clock",
 			// A concept nothing matches is a legitimate empty result, not bad
 			// input: there is no way to distinguish "no icon set covers this"
 			// from "this word is nonsense" without inventing semantics.
@@ -63,11 +66,9 @@ already present in a codebase; use 'audit'.`, "\n"),
 			}
 			defer db.Close()
 			if empty {
-				hintEmptyIndex(cmd, dbPath)
-				if !wantsHumanTable(cmd.OutOrStdout(), flags) {
-					return printJSONFiltered(cmd.OutOrStdout(), make([]iconindex.Coverage, 0), flags)
+				if err := ensureIndexed(ctx, cmd, db, flags); err != nil {
+					return err
 				}
-				return nil
 			}
 
 			rows, err := iconindex.CoverageBySet(ctx, db.DB(), args, 0)

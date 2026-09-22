@@ -63,7 +63,14 @@ or design system. Do NOT use it to fetch a single ad-hoc icon; use
 		Example: strings.Trim(`
   iconify-pp-cli kit icons.yaml --out assets/
   iconify-pp-cli kit icons.txt --out assets/ --color '#404041' --width 32`, "\n"),
-		Annotations: map[string]string{"mcp:read-only": "false"},
+		Annotations: map[string]string{
+			"mcp:read-only": "false",
+			// Writes only when --out is given; without it the command resolves
+			// the manifest and prints the plan, touching nothing.
+			// The manifest positional is a file path, not an id. The shipped
+			// example manifest gives the live matrix a real one to render.
+			"pp:happy-args": "<manifest>=examples/icons.yaml",
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 && cmd.Flags().NFlag() == 0 {
 				return cmd.Help()
@@ -75,10 +82,7 @@ or design system. Do NOT use it to fetch a single ad-hoc icon; use
 				_ = cmd.Usage()
 				return usageErr(fmt.Errorf("a manifest path is required"))
 			}
-			if out == "" {
-				_ = cmd.Usage()
-				return usageErr(fmt.Errorf("--out is required"))
-			}
+
 			ctx, cancel := boundCtx(cmd.Context(), flags)
 			defer cancel()
 
@@ -111,8 +115,10 @@ or design system. Do NOT use it to fetch a single ad-hoc icon; use
 			}
 			// #nosec G301 -- generated icon assets are checked into the caller's
 			// repo and must stay world-readable like the rest of the tree.
-			if err := os.MkdirAll(out, 0o755); err != nil {
-				return fmt.Errorf("creating output directory: %w", err)
+			if out != "" {
+				if err := os.MkdirAll(out, 0o755); err != nil {
+					return fmt.Errorf("creating output directory: %w", err)
+				}
 			}
 
 			db, err := openIconIndex(ctx, dbPath, false)
@@ -141,6 +147,15 @@ or design system. Do NOT use it to fetch a single ad-hoc icon; use
 						row.Status = "renamed"
 						row.Note = name + " resolves to " + res.Canonical
 					}
+				}
+				if out == "" {
+					row.Status = "planned"
+					row.File = prefix + "-" + canonical + ".svg"
+					if canonical != name {
+						row.Note = name + " resolves to " + canonical
+					}
+					view.Items = append(view.Items, row)
+					continue
 				}
 				params := map[string]string{}
 				for k, v := range map[string]string{
@@ -191,13 +206,17 @@ or design system. Do NOT use it to fetch a single ad-hoc icon; use
 				}
 				fmt.Fprintln(cmd.OutOrStdout(), line)
 			}
+			if out == "" {
+				fmt.Fprintf(cmd.OutOrStdout(), "\n%d icons planned. Pass --out <dir> to render them.\n", len(view.Items))
+				return nil
+			}
 			fmt.Fprintf(cmd.OutOrStdout(), "\n%d written, %d unchanged, %d failed -> %s\n",
 				view.Written, view.Unchanged, view.Missing, out)
 			return nil
 		},
 	}
 	cmd.Flags().StringVar(&dbPath, "db", "", "Path to the local index database")
-	cmd.Flags().StringVar(&out, "out", "", "Directory to write SVG files into")
+	cmd.Flags().StringVar(&out, "out", "", "Directory to write SVG files into. Omit to print the plan without writing")
 	cmd.Flags().StringVar(&color, "color", "", "Override the manifest colour, e.g. '#404041'")
 	cmd.Flags().StringVar(&width, "width", "", "Override the manifest width")
 	cmd.Flags().StringVar(&height, "height", "", "Override the manifest height")

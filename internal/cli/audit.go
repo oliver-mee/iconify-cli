@@ -76,7 +76,12 @@ upstream changes to a set; use 'diff'.`, "\n"),
   iconify-pp-cli audit ./src
   iconify-pp-cli audit ./src --json
   iconify-pp-cli audit . --ext .tsx --ext .vue`, "\n"),
-		Annotations: map[string]string{"mcp:read-only": "true"},
+		Annotations: map[string]string{
+			"mcp:read-only": "true",
+			// The path positional is a directory, not an id. Scanning the CLI's
+			// own source is a real scan that always exists wherever it runs.
+			"pp:happy-args": "<path>=.",
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 && cmd.Flags().NFlag() == 0 {
 				return cmd.Help()
@@ -100,17 +105,50 @@ upstream changes to a set; use 'diff'.`, "\n"),
 				return err
 			}
 			defer db.Close()
-			if empty {
-				hintEmptyIndex(cmd, dbPath)
-				if !wantsHumanTable(cmd.OutOrStdout(), flags) {
-					return printJSONFiltered(cmd.OutOrStdout(), auditView{Root: root, Refs: []auditRef{}, Sets: []auditSetUse{}, Findings: []string{}}, flags)
-				}
-				return nil
-			}
+			_ = empty
 
 			refs, scanned, err := scanForIconRefs(root, exts)
 			if err != nil {
 				return err
+			}
+			// The scan matches any quoted "word:word", which in real source also
+			// catches things like "sha256:..." or "prefix:name" in prose. Check
+			// candidates against the authoritative icon-set list before treating
+			// them as icon references, or the report is full of noise.
+			if len(refs) > 0 {
+				known, kErr := iconindex.KnownPrefixes(ctx, db.DB())
+				if kErr != nil {
+					return kErr
+				}
+				if len(known) == 0 {
+					api, aErr := flags.newClient()
+					if aErr != nil {
+						return aErr
+					}
+					known, kErr = iconindex.LivePrefixes(ctx, api)
+					if kErr != nil {
+						return kErr
+					}
+				}
+				seen := map[string]bool{}
+				var needed []string
+				for key := range refs {
+					prefix, _, ok := splitIconName(key)
+					if !ok || !known[prefix] {
+						delete(refs, key)
+						continue
+					}
+					if !seen[prefix] {
+						seen[prefix] = true
+						needed = append(needed, prefix)
+					}
+				}
+				sort.Strings(needed)
+				if len(needed) > 0 {
+					if err := ensureIndexed(ctx, cmd, db, flags, needed...); err != nil {
+						return err
+					}
+				}
 			}
 			view := auditView{Root: root, Scanned: scanned, Refs: []auditRef{}, Sets: []auditSetUse{}, Findings: []string{}}
 

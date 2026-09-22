@@ -49,7 +49,12 @@ first place; use 'set-pick' instead.`, "\n"),
 		Example: strings.Trim(`
   iconify-pp-cli swap mdi lucide --icons home,account,cog,rocket
   iconify-pp-cli swap fa6-solid lucide --all --json`, "\n"),
-		Annotations: map[string]string{"mcp:read-only": "true"},
+		Annotations: map[string]string{
+			"mcp:read-only": "true",
+			// Two positional set prefixes plus an explicit icon list, so the
+			// happy path exercises a real cross-set join.
+			"pp:happy-args": "<from-set>=mdi;<to-set>=lucide;--icons=home,cog,rocket",
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 && cmd.Flags().NFlag() == 0 {
 				return cmd.Help()
@@ -70,12 +75,9 @@ first place; use 'set-pick' instead.`, "\n"),
 				return err
 			}
 			defer db.Close()
-			if empty {
-				hintEmptyIndex(cmd, dbPath)
-				if !wantsHumanTable(cmd.OutOrStdout(), flags) {
-					return printJSONFiltered(cmd.OutOrStdout(), swapView{From: from, To: to, Items: make([]iconindex.SwapRow, 0)}, flags)
-				}
-				return nil
+			_ = empty
+			if err := ensureIndexed(ctx, cmd, db, flags, from, to); err != nil {
+				return err
 			}
 
 			// CrossSet only indexes the target set, so an unindexed source

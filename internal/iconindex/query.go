@@ -386,3 +386,45 @@ func UnindexedPrefixes(ctx context.Context, db *sql.DB, prefixes []string) ([]st
 	}
 	return missing, nil
 }
+
+// KnownPrefixes returns the icon-set prefixes present in the local index.
+func KnownPrefixes(ctx context.Context, db *sql.DB) (map[string]bool, error) {
+	rows, err := db.QueryContext(ctx, `SELECT prefix FROM icon_sets`)
+	if err != nil {
+		return nil, fmt.Errorf("reading known prefixes: %w", err)
+	}
+	defer rows.Close()
+	out := map[string]bool{}
+	for rows.Next() {
+		var p sql.NullString
+		if err := rows.Scan(&p); err != nil {
+			return nil, fmt.Errorf("scanning known prefix: %w", err)
+		}
+		if p.String != "" {
+			out[p.String] = true
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("iterating known prefixes: %w", err)
+	}
+	return out, nil
+}
+
+// LivePrefixes fetches the authoritative icon-set prefix list from the API.
+// Used to tell a real icon reference from an arbitrary "word:word" string when
+// the local index has no set list yet.
+func LivePrefixes(ctx context.Context, api Fetcher) (map[string]bool, error) {
+	raw, err := api.Get(ctx, "/collections", nil)
+	if err != nil {
+		return nil, fmt.Errorf("fetching collections: %w", err)
+	}
+	sets, err := ParseSets(raw)
+	if err != nil {
+		return nil, err
+	}
+	out := make(map[string]bool, len(sets))
+	for _, s := range sets {
+		out[s.Prefix] = true
+	}
+	return out, nil
+}

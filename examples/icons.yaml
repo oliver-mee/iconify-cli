@@ -1,0 +1,18 @@
+# Example manifest for `iconify kit`.
+#
+#   iconify-pp-cli kit examples/icons.yaml --out assets/
+#
+# The render profile applies to every icon in the list. Flags on the command
+# line win over the values set here, so one manifest can serve several themes:
+#
+#   iconify-pp-cli kit examples/icons.yaml --out assets/dark/ --color '#ffffff'
+
+color: "#404041"
+width: "32"
+
+icons:
+  - lucide:rocket
+  - lucide:shield
+  - lucide:clock
+  - carbon:analytics
+  - simple-icons:github

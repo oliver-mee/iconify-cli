@@ -55,7 +55,7 @@ Documented quirks worth encoding:
 - Emphasis: core search/get/collections, bulk and CSS export, a shadcn.io registry bridge, save-to-file and keywords.
 - Offline search over ~294k icons is the headline differentiator.
 - Recoloured SVG output feeds an existing slide-building workflow.
-- Ships as `oliver-mee/iconify-cli`, binary `iconify`. Not published upstream.
+- Ships as `oliver-mee/iconify-cli`, and to the public Printing Press library.
 
 ## Product Thesis
 - Name: `iconify`

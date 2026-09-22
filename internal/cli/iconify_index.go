@@ -9,8 +9,10 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -19,6 +21,7 @@ import (
 )
 
 func newNovelIndexCmd(flags *rootFlags) *cobra.Command {
+	var indexTimeout time.Duration
 	var dbPath string
 	var only []string
 	var force bool
@@ -42,7 +45,11 @@ before set-pick, swap, audit, diff, or shadcn.`, "\n"),
 			if dryRunOK(flags) {
 				return writeDryRun(cmd.OutOrStdout(), flags, "index")
 			}
-			ctx, cancel := boundCtx(cmd.Context(), flags)
+			// The root --timeout bounds one API request. A full index fans out
+			// across every icon set and legitimately runs for minutes, so the
+			// 1 minute default would abort it partway. Honour --timeout only
+			// when the caller set it explicitly.
+			ctx, cancel := indexCtx(cmd, flags, indexTimeout)
 			defer cancel()
 
 			db, err := openIconIndex(ctx, dbPath, false)
@@ -94,7 +101,22 @@ before set-pick, swap, audit, diff, or shadcn.`, "\n"),
 	cmd.Flags().StringSliceVar(&only, "only", nil, "Index only these icon set prefixes")
 	cmd.Flags().BoolVar(&force, "force", false, "Reindex sets even when unchanged upstream")
 	cmd.Flags().IntVar(&concurrency, "concurrency", 8, "Parallel icon set fetches")
+	cmd.Flags().DurationVar(&indexTimeout, "index-timeout", 30*time.Minute, "Overall deadline for the whole index build")
 	return cmd
+}
+
+// indexCtx bounds a whole index build. An explicit --timeout wins, because the
+// caller asked for it; otherwise the build gets its own generous deadline.
+func indexCtx(cmd *cobra.Command, flags *rootFlags, fallback time.Duration) (context.Context, context.CancelFunc) {
+	if root := cmd.Root(); root != nil {
+		if f := root.PersistentFlags().Lookup("timeout"); f != nil && f.Changed {
+			return boundCtx(cmd.Context(), flags)
+		}
+	}
+	if fallback <= 0 {
+		fallback = 30 * time.Minute
+	}
+	return context.WithTimeout(cmd.Context(), fallback)
 }
 
 func init() {

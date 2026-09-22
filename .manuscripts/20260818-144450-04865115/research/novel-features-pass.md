@@ -1,6 +1,6 @@
 ## Customer model
 
-**Persona A — "Oliver, the deck builder."** Runs a slide/deck build system that assembles branded HTML→PPTX decks. Every deck needs 10-30 icons in Preface brand grey `#404041`, all at one size, all from one set.
+**Persona A — the deck builder.** Runs a slide/deck build system that assembles branded HTML→PPTX decks. Every deck needs 10-30 icons in a brand grey `#404041`, all at one size, all from one set.
 
 - **Today (without this CLI):** Has icones.antfu.dev open in one tab, copies an icon name, hand-writes a `curl https://api.iconify.design/lucide/rocket.svg?color=%23404041&width=32 -o assets/rocket.svg`, repeats 20 times, then discovers three of the names silently resolved to something else or came back as a 404 he pasted into the deck as an empty file. Cannot answer: "are all 22 icons in this deck actually from the same set, at the same grid height?"
 - **Weekly ritual:** Build or revise a deck; produce a directory of recoloured, uniformly-sized SVGs from a list of icon concepts he wrote in the copy pass.
@@ -42,7 +42,7 @@
 | 12 | Visual similarity | `iconify similar <icon>` | Find visually similar icons across sets by comparing SVG path geometry | A | (b) | **cut** — needs a render/geometry pipeline; unverifiable in dogfood; fails scope creep | none |
 | 13 | Corpus stats | `iconify stats` | Totals by category, palette, licence across all 236 sets | — | (c) | **cut** — no persona runs this weekly; it is a curiosity, and `analytics --type collections --group-by category` already covers it | none |
 | 14 | Interactive picker | `iconify browse` | TUI grid to arrow-key through search results | A | (a) | **cut** — TUI, persistent process, and it re-implements `icones` in a terminal | none |
-| 15 | Brand profile presets | `iconify profile use preface` | Named colour/size profiles applied to every fetch | A | (e) user vision | **reframe** — config, not a command; it is the profile block `kit` reads | none |
+| 15 | Brand profile presets | `iconify profile use brand` | Named colour/size profiles applied to every fetch | A | (e) user vision | **reframe** — config, not a command; it is the profile block `kit` reads | none |
 | 16 | Deck export | `iconify deck-export <deck.json>` | Emit icons shaped for the slide-build system's asset layout | A | (e) | **cut** — same mechanism as `kit` with one consumer's directory convention baked in; `kit`'s manifest covers it without coupling the CLI to one downstream system | none |
 
 ## Survivors and kills
