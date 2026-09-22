@@ -16,8 +16,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/platform"
 )
 
 type conformanceResolver struct{ value []byte }

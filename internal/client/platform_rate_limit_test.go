@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 )
 
 func TestPlatformRateLimitRetriesSafeRequestAndRecordsMetadata(t *testing.T) {

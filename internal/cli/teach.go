@@ -27,12 +27,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/learn/entities"
-	"iconify-pp-cli/internal/learn/lookups"
-	"iconify-pp-cli/internal/learn/patterns"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/lookups"
+	"github.com/oliver-mee/iconify-cli/internal/learn/patterns"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // noLearnEnvVar is the environment variable that disables the learning

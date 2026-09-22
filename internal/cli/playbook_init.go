@@ -31,9 +31,9 @@ import (
 	"strings"
 	"sync"
 
-	"iconify-pp-cli/internal/cli/playbooks"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cli/playbooks"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // playbookSeedSentinelFamily is the synthetic query_family used to

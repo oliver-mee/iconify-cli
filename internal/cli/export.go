@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/cliutil"
 )
 
 func newExportCmd(flags *rootFlags) *cobra.Command {

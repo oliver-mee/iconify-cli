@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // seedCandidate derives one candidate row directly through the store

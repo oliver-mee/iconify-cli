@@ -20,8 +20,8 @@ import (
 	"strings"
 	"testing"
 
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // synthesisFamily is the query family every scenario teaches under.

@@ -17,15 +17,15 @@ import (
 
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"iconify-pp-cli/internal/cli"
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/mcp/bound"
-	"iconify-pp-cli/internal/mcp/cobratree"
-	"iconify-pp-cli/internal/platform"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cli"
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/mcp/bound"
+	"github.com/oliver-mee/iconify-cli/internal/mcp/cobratree"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 const (

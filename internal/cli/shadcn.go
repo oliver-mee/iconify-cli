@@ -13,8 +13,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/iconindex"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/iconindex"
 )
 
 type shadcnRow struct {

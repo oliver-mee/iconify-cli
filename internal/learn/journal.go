@@ -17,7 +17,7 @@ import (
 	"sync"
 	"time"
 
-	"iconify-pp-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 )
 
 // The invocation journal records one entry per CLI invocation in dated

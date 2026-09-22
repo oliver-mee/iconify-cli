@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // runLearningsStatsJSON executes `learnings stats --json` against the

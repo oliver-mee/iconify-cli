@@ -12,7 +12,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"iconify-pp-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
 )
 
 // stubResolver is a test-only EntityResolver backed by an in-memory

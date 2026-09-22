@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // TestNewLearnConfig_BuildsConfig pins that the emitted init shim

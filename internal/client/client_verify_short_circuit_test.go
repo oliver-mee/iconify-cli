@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"iconify-pp-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/config"
 )
 
 // recordingRoundTripper counts how many times its RoundTrip method is

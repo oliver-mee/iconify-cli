@@ -12,9 +12,9 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/platform"
 )
 
 // platformSourceRegistration is intentionally package-local: a preserved

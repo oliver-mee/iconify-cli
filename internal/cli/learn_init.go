@@ -23,9 +23,9 @@ import (
 	"os"
 	"sync"
 
-	"iconify-pp-cli/internal/learn/entities"
-	"iconify-pp-cli/internal/learn/lookups"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/lookups"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // newLearnConfig returns the per-CLI entity extractor Config the

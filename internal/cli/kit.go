@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"iconify-pp-cli/internal/iconindex"
+	"github.com/oliver-mee/iconify-cli/internal/iconindex"
 )
 
 // kitManifest is the input file. A plain newline-delimited list of

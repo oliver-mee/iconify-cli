@@ -6,7 +6,7 @@ package main
 import (
 	"os"
 
-	"iconify-pp-cli/internal/cli"
+	"github.com/oliver-mee/iconify-cli/internal/cli"
 )
 
 func main() {

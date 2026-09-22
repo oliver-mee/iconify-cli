@@ -17,8 +17,8 @@ import (
 	"strings"
 	"time"
 
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 const networkFallbackReason = "api_unreachable"

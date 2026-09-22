@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/iconindex"
+	"github.com/oliver-mee/iconify-cli/internal/iconindex"
 )
 
 func newNovelSetPickCmd(flags *rootFlags) *cobra.Command {

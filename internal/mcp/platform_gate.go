@@ -8,8 +8,8 @@ import (
 
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"iconify-pp-cli/internal/cli"
-	"iconify-pp-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/cli"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 )
 
 const mcpTenantGateOwnerKey = "pp:tenant-gate"

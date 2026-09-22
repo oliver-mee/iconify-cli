@@ -16,8 +16,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 )
 
 func TestTruncateBody(t *testing.T) {

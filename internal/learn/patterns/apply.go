@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"iconify-pp-cli/internal/learn/lookups"
+	"github.com/oliver-mee/iconify-cli/internal/learn/lookups"
 )
 
 // DefaultJaccardMin matches the recall-side floor. Applying the same

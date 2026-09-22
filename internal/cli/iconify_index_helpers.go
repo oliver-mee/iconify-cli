@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // iconifyIndexDBPath resolves the mirror path, honouring an explicit --db.

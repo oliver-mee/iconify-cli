@@ -13,11 +13,11 @@ import (
 	"sync"
 	"testing"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/cliutil/testenv"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/learn/entities"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil/testenv"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 func unmarshalAgentResults(t *testing.T, stdout string, out any) {

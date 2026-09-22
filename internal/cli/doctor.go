@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/store"
 )
 
 // Hand-coded auth flows can report credentials that are intentionally not

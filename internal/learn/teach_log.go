@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"iconify-pp-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 )
 
 // teachLogStateDirName is the per-user state directory name.

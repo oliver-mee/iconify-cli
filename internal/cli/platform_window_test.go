@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/platform"
 )
 
 func TestPlatformCommandWindowPreservesCalendarInputs(t *testing.T) {

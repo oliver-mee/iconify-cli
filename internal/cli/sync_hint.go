@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/store"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/store"
 )
 
 type syncHintState struct {

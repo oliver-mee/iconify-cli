@@ -12,7 +12,7 @@ import (
 	"strings"
 	"unicode"
 
-	"iconify-pp-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 )
 
 // LookupRow is the canonical seed-row shape used by both the seeds

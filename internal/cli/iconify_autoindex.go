@@ -15,9 +15,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/iconindex"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/iconindex"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // bootstrapSets are indexed when a corpus-wide command runs against an empty

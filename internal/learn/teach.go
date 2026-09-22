@@ -19,7 +19,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"iconify-pp-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
 )
 
 // Warning is one teach-time validation finding. The shape is the JSON

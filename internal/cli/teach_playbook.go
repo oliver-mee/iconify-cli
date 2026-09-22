@@ -20,9 +20,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/learn/entities"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // newTeachPlaybookCmd builds the standalone command for recording a

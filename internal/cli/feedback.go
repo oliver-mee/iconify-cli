@@ -14,8 +14,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/cliutil"
 )
 
 // FeedbackEntry is one line in the local feedback ledger. Every run of
@@ -81,7 +81,7 @@ func postFeedback(url string, entry FeedbackEntry) error {
 		return fmt.Errorf("building feedback request: %w", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "iconify-pp-cli/feedback")
+	req.Header.Set("User-Agent", "github.com/oliver-mee/iconify-cli/feedback")
 	client := &http.Client{Timeout: 15 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {

@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/store"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/store"
 )
 
 func newSyncHintTestStore(t *testing.T) *store.Store {

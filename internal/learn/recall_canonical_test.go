@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	"iconify-pp-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
 
 	_ "modernc.org/sqlite"
 )

@@ -20,11 +20,11 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/platform"
 )
 
 var As = errors.As

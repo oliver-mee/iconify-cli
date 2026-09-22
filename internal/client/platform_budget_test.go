@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"iconify-pp-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 )
 
 func TestPlatformBudgetLookupContract(t *testing.T) {

@@ -13,7 +13,7 @@ import (
 	"sort"
 	"strings"
 
-	"iconify-pp-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
 )
 
 // EntityResolver looks up a token in entity_lookups to find its

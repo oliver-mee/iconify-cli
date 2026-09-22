@@ -12,10 +12,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
 	"html"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/platform"
 	"io"
 	"math"
 	"net"
@@ -942,7 +942,7 @@ func (c *Client) doInternal(ctx context.Context, method, path string, params map
 			if ua := os.Getenv("ICONIFY_USER_AGENT"); ua != "" {
 				req.Header.Set("User-Agent", ua)
 			} else {
-				req.Header.Set("User-Agent", "iconify-pp-cli/0.1.0")
+				req.Header.Set("User-Agent", "github.com/oliver-mee/iconify-cli/0.1.0")
 			}
 		}
 		// Go's net/http omits Accept by default; browsers, curl, and other

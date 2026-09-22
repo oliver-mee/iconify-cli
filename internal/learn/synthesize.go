@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // Teach-time playbook synthesis. When an agent teaches a resource

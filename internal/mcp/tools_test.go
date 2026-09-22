@@ -12,10 +12,10 @@ import (
 
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/cliutil/testenv"
-	"iconify-pp-cli/internal/mcp/bound"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil/testenv"
+	"github.com/oliver-mee/iconify-cli/internal/mcp/bound"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 func TestMCPPathResolutionMatchesCLIResolverWithHomeEnv(t *testing.T) {

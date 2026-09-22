@@ -17,8 +17,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // deriveDBPath allocates a fresh candidate-store path per test.

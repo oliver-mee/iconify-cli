@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/oliver-mee/iconify-cli/internal/store"
 	"github.com/spf13/cobra"
-	"iconify-pp-cli/internal/store"
 )
 
 // isNilOrEmpty checks whether a JSON search hit is only an empty shell.

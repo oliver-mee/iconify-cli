@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"iconify-pp-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
 )
 
 // NormalizedQuery is the entity-aware normalized representation of a

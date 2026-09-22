@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"testing"
 
-	"iconify-pp-cli/internal/cliutil/testenv"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil/testenv"
 )
 
 func resetPathEnv(t *testing.T) string {

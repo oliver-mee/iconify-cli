@@ -18,9 +18,9 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"iconify-pp-cli/internal/cli/playbooks"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/cli/playbooks"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // twoPlaybookFS returns an fstest.MapFS with two minimal playbooks +

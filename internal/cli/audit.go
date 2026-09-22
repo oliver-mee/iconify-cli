@@ -16,7 +16,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"iconify-pp-cli/internal/iconindex"
+	"github.com/oliver-mee/iconify-cli/internal/iconindex"
 )
 
 // iconRefPattern matches the ways an Iconify icon is referenced in source:

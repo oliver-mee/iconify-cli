@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/mark3labs/mcp-go/server"
-	"iconify-pp-cli/internal/cli"
-	mcptools "iconify-pp-cli/internal/mcp"
+	"github.com/oliver-mee/iconify-cli/internal/cli"
+	mcptools "github.com/oliver-mee/iconify-cli/internal/mcp"
 )
 
 // Transport selection order: --transport flag, then PP_MCP_TRANSPORT env,

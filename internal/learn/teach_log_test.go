@@ -11,8 +11,8 @@ import (
 	"sync"
 	"testing"
 
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/cliutil/testenv"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil/testenv"
 )
 
 func withTempHomeForLog(t *testing.T) string {

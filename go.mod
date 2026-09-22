@@ -1,4 +1,4 @@
-module iconify-pp-cli
+module github.com/oliver-mee/iconify-cli
 
 go 1.26.6
 

@@ -15,9 +15,9 @@ import (
 	"strings"
 	"time"
 
-	"iconify-pp-cli/internal/learn/entities"
-	"iconify-pp-cli/internal/learn/lookups"
-	"iconify-pp-cli/internal/learn/patterns"
+	"github.com/oliver-mee/iconify-cli/internal/learn/entities"
+	"github.com/oliver-mee/iconify-cli/internal/learn/lookups"
+	"github.com/oliver-mee/iconify-cli/internal/learn/patterns"
 )
 
 // Default thresholds. Keep in sync with the documented contract in

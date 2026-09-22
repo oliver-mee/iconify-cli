@@ -17,10 +17,10 @@ import (
 	"testing"
 	"time"
 
-	"iconify-pp-cli/internal/cli"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/cliutil/testenv"
-	"iconify-pp-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/cli"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil/testenv"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
 )
 
 // withJournalHome isolates a test in a temp HOME with every journal

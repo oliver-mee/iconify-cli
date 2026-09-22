@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 func TestSyncSingleObject_PreservesLargeIntegerResourceIDs(t *testing.T) {

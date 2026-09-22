@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"iconify-pp-cli/internal/store"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 )
 
 // This file owns post-run flag-correction derivation: turning an

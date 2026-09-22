@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
 	"github.com/pelletier/go-toml/v2"
-	"iconify-pp-cli/internal/cliutil"
 )
 
 type Config struct {

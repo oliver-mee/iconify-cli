@@ -13,14 +13,14 @@ import (
 	"text/tabwriter"
 	"time"
 
+	"github.com/oliver-mee/iconify-cli/internal/client"
+	"github.com/oliver-mee/iconify-cli/internal/cliutil"
+	"github.com/oliver-mee/iconify-cli/internal/config"
+	"github.com/oliver-mee/iconify-cli/internal/learn"
+	"github.com/oliver-mee/iconify-cli/internal/platform"
+	"github.com/oliver-mee/iconify-cli/internal/store"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"iconify-pp-cli/internal/client"
-	"iconify-pp-cli/internal/cliutil"
-	"iconify-pp-cli/internal/config"
-	"iconify-pp-cli/internal/learn"
-	"iconify-pp-cli/internal/platform"
-	"iconify-pp-cli/internal/store"
 )
 
 type rootFlags struct {
