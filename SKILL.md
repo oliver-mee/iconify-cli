@@ -13,7 +13,7 @@ metadata:
     install:
       - kind: go
         bins: [iconify]
-        module: github.com/mvanhorn/printing-press-library/library/developer-tools/iconify/cmd/iconify-pp-cli
+        module: github.com/oliver-mee/iconify-cli/cmd/iconify
 ---
 
 # Iconify — Printing Press CLI
